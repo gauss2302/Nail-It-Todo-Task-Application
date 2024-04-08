@@ -8,7 +8,7 @@ import 'package:nail_it/features/search/presentation/pages/search_screen.dart';
 import 'package:nail_it/features/task/presentation/pages/task_screen.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+  const NavBar({Key? key}) : super(key: key);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -26,19 +26,15 @@ class _NavBarState extends State<NavBar> {
       const MyProfilePage(),
     ];
 
-    void _onItemTapped(int index) {
-      setState(() {
-        _index = index;
-      });
-    }
-
     return CustomNavigationBar(
-      items: _pages[_index],
       iconSize: 30.0,
-      selectedColor: const Color(0xff040307),
-      strokeColor: const Color(0x30040307),
-      unSelectedColor: const Color(0xffacacac),
-      backgroundColor: Colors.white,
+      selectedColor: Colors.white,
+      strokeColor: Colors.white,
+      unSelectedColor: Colors.grey[600],
+      backgroundColor: Color.fromARGB(255, 214, 111, 216),
+      borderRadius: const Radius.circular(20.0),
+      blurEffect: true,
+      opacity: 0.8,
       items: [
         CustomNavigationBarItem(
           icon: const LineIcon.mapPin(),
@@ -66,6 +62,7 @@ class _NavBarState extends State<NavBar> {
           _currentIndex = index;
         });
       },
+      // isFloating: true,
     );
   }
 }
