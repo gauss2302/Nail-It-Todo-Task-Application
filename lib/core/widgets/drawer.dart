@@ -64,7 +64,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                   ListTile(
                     leading: const LineIcon.tasks(
                       size: 40.0,
-                      color: AppPallete.blueColor,
+                      color: AppPallete.gradient1,
                     ),
                     title: const Text('M Y  T A S K S'),
                     onTap: () {
@@ -74,7 +74,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                   ListTile(
                     leading: const LineIcon.archive(
                       size: 40.0,
-                      color: AppPallete.blueColor,
+                      color: AppPallete.gradient1,
                     ),
                     title: const Text('G O A L S'),
                     onTap: () {
@@ -84,26 +84,47 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                   ListTile(
                     leading: const LineIcon.award(
                       size: 40.0,
-                      color: AppPallete.blueColor,
+                      color: AppPallete.gradient1,
                     ),
                     title: const Text('A C H I E V E M E N T S'),
                     onTap: () {
                       Navigator.pop(context);
                     },
                   ),
+                  ListTile(
+                    leading: const LineIcon.personEnteringBooth(
+                      size: 40.0,
+                      color: AppPallete.gradient1,
+                    ),
+                    title: const Text('P R O F I L E'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const LineIcon.cog(
+                      size: 40.0,
+                      color: AppPallete.gradient1,
+                    ),
+                    title: const Text('S E T T I N G S'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                   const Divider(
                     indent: 1,
-                    color: AppPallete.blueColor,
+                    color: AppPallete.gradient1,
                     height: 1.0,
                     thickness: 1.0,
                   ),
                   Container(
+                    alignment: Alignment.bottomCenter,
                     child: Column(
                       children: [
                         ListTile(
                           leading: const LineIcon.googlePlay(
                             size: 40.0,
-                            color: AppPallete.blueColor,
+                            color: AppPallete.gradient1,
                           ),
                           title: const Text('Google Play'),
                           onTap: () {
@@ -113,7 +134,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                         ListTile(
                           leading: const LineIcon.appStore(
                             size: 40.0,
-                            color: AppPallete.blueColor,
+                            color: AppPallete.gradient1,
                           ),
                           title: const Text('App Store'),
                           onTap: () {

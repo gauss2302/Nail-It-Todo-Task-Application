@@ -43,17 +43,11 @@ class MyHome extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  'Click me! now',
-                ),
-              ),
               Text(
                 'Awesome Line Icons are great!',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 48.0,
               ),
               // Using LineIcon (no 's') for concision. It returns an Icon object
