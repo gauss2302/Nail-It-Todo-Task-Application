@@ -19,7 +19,7 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     int _currentIndex = 0;
 
-    final List<Widget> _pages = [
+    final List<Widget> badgeCount = [
       const TaskScreen(),
       const ExploreScreen(),
       const SearchScreen(),
@@ -37,6 +37,7 @@ class _NavBarState extends State<NavBar> {
       opacity: 0.8,
       items: [
         CustomNavigationBarItem(
+          badgeCount: 0,
           icon: const LineIcon.mapPin(),
           title: const Text(
             "Home",
@@ -44,22 +45,25 @@ class _NavBarState extends State<NavBar> {
           ),
         ),
         CustomNavigationBarItem(
+          badgeCount: 1,
           icon: const LineIcon.earlybirds(),
           title: const Text("Explore"),
         ),
         CustomNavigationBarItem(
+          badgeCount: 2,
           icon: const LineIcon.search(),
           title: const Text("Search"),
         ),
         CustomNavigationBarItem(
+          badgeCount: 3,
           icon: const LineIcon.user(),
           title: const Text("Me"),
         ),
       ],
       currentIndex: _currentIndex,
-      onTap: (index) {
+      onTap: (badgeCount) {
         setState(() {
-          _currentIndex = index;
+          _currentIndex = badgeCount;
         });
       },
       // isFloating: true,
