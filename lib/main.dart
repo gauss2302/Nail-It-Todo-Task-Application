@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
-import 'package:nail_it/features/auth/presentation/pages/sign_up_screen.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/widgets/navbar.dart';
