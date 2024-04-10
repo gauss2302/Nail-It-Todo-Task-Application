@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
+import 'package:nail_it/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/widgets/navbar.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyRootApp(),
+      home: const MyRootApp(),
     );
   }
 }
@@ -51,42 +52,16 @@ class _MyRootAppState extends ConsumerState<MyRootApp> {
         child: Center(
           child: Column(
             children: [
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+              const SingleChildScrollView(
+                padding: EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(18),
-                        hintText: 'Email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            8,
-                          ),
-                          borderSide: const BorderSide(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
+                    LineIcon.hippo(
+                      size: 48.0,
+                      color: Colors.blue,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(18),
-                        hintText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            8,
-                          ),
-                          borderSide: const BorderSide(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
