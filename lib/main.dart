@@ -51,9 +51,18 @@ class MyHome extends StatelessWidget {
                 height: 48.0,
               ),
               // Using LineIcon (no 's') for concision. It returns an Icon object
-              const LineIcon.hippo(
-                size: 48.0,
-                color: Colors.blue,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  LineIcon.hippo(
+                    size: 48.0,
+                    color: Colors.blue,
+                  ),
+                  LineIcon.heart(
+                    size: 48.0,
+                    color: Colors.red,
+                  ),
+                ],
               ),
             ],
           ),
