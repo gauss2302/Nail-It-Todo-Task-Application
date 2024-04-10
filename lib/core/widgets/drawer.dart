@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:nail_it/core/theme/app_pallete.dart';
 
@@ -98,7 +99,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('P R O F I L E'),
                     onTap: () {
-                      Navigator.pop(context);
+                      context.go('/profile');
                     },
                   ),
                   ListTile(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:nail_it/core/utils/routes.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
 
@@ -12,23 +14,44 @@ import 'core/widgets/navbar.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(url: 'SUPERBASE_URL', anonKey: 'SUPERBASE_KEY');
-  runApp(const MyApp());
+  runApp(MyApp());
 }
+
+final GoRouter _router = GoRouter(
+  initialLocation: '/home',
+  routes: <RouteBase>[
+    GoRoute(
+        path: "/",
+        builder: (BuildContext context, GoRouterState state) {
+          return const MyRootApp();
+        }),
+    GoRoute(
+        path: '/home',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: MyRootApp())),
+    GoRoute(
+        path: '/profile',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: MyRootApp())),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final GlobalKey<NavigatorState> _rootNavigatorKey =
+        GlobalKey<NavigatorState>();
+
+    return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyRootApp(),
+      routerConfig: _router,
     );
   }
 }
