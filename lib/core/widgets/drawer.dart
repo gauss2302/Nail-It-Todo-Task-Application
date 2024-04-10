@@ -79,7 +79,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('G O A L S'),
                     onTap: () {
-                      Navigator.pop(context);
+                      context.push('/goals');
                     },
                   ),
                   ListTile(
@@ -89,7 +89,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('A C H I E V E M E N T S'),
                     onTap: () {
-                      Navigator.pop(context);
+                      context.push('/achievment');
                     },
                   ),
                   ListTile(
@@ -99,7 +99,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('P R O F I L E'),
                     onTap: () {
-                      context.go('/profile');
+                      context.push('/profile');
                     },
                   ),
                   ListTile(
@@ -109,7 +109,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('S E T T I N G S'),
                     onTap: () {
-                      Navigator.pop(context);
+                      context.push('/settings');
                     },
                   ),
                   const Divider(

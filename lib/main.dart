@@ -3,9 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icon.dart';
-import 'package:nail_it/core/utils/routes.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
+import 'package:nail_it/features/achievments/presentation/pages/achievment_screen.dart';
+import 'package:nail_it/features/goals/presentation/pages/goals_screen.dart';
+import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';
+import 'package:nail_it/features/settings/presentation/pages/settings_screen.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -32,7 +35,21 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/profile',
         pageBuilder: (context, state) =>
-            const MaterialPage(child: MyRootApp())),
+            const MaterialPage(child: MyProfilePage())),
+    GoRoute(
+      path: '/goals',
+      pageBuilder: (context, state) => const MaterialPage(child: GoalsScreen()),
+    ),
+    GoRoute(
+      path: '/achievment',
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: AchievmentScreen()),
+    ),
+    GoRoute(
+      path: '/settings',
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: SettingsScreen()),
+    ),
   ],
 );
 
@@ -45,14 +62,13 @@ class MyApp extends StatelessWidget {
         GlobalKey<NavigatorState>();
 
     return MaterialApp.router(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      routerConfig: _router,
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routerConfig: _router);
   }
 }
 
