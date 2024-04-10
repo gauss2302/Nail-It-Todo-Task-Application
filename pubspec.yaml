@@ -41,6 +41,8 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   google_fonts: ^6.2.1
   supabase_flutter: ^2.5.0
+  riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
