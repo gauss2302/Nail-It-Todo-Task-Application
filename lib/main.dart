@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nail_it/core/routes/routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'package:nail_it/core/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");
 
-  // String superbaseUrl = dotenv.env['SUPERBASE_URL']!;
-  // String superbaseKey = dotenv.env['SUPERBASE_KEY']!;
+  String superbaseUrl = dotenv.env['SUPERBASE_URL']!;
+  String superbaseKey = dotenv.env['SUPERBASE_KEY']!;
 
   final superbase =
       await Supabase.initialize(url: 'SUPERBASE_URL', anonKey: 'SUPERBASE_KEY');
