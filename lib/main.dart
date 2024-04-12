@@ -15,39 +15,6 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-// final GoRouter _router = GoRouter(
-//   initialLocation: '/home',
-//   routes: <RouteBase>[
-//     GoRoute(
-//         path: "/",
-//         builder: (BuildContext context, GoRouterState state) {
-//           return const MyRootApp();
-//         }),
-//     GoRoute(
-//         path: '/home',
-//         pageBuilder: (context, state) =>
-//             const MaterialPage(child: MyRootApp())),
-//     GoRoute(
-//         path: '/profile',
-//         pageBuilder: (context, state) =>
-//             const MaterialPage(child: MyProfilePage())),
-//     GoRoute(
-//       path: '/goals',
-//       pageBuilder: (context, state) => const MaterialPage(child: GoalsScreen()),
-//     ),
-//     GoRoute(
-//       path: '/achievment',
-//       pageBuilder: (context, state) =>
-//           const MaterialPage(child: AchievmentScreen()),
-//     ),
-//     GoRoute(
-//       path: '/settings',
-//       pageBuilder: (context, state) =>
-//           const MaterialPage(child: SettingsScreen()),
-//     ),
-//   ],
-// );
-
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
@@ -56,7 +23,8 @@ class MyApp extends ConsumerWidget {
     final routes = ref.read(routeProvider);
 
     return MaterialApp.router(
-        // routerConfig: routes,
-        );
+      debugShowCheckedModeBanner: false,
+      routerConfig: routes as RouterConfig<Object>?,
+    );
   }
 }

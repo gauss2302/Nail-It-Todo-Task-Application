@@ -69,7 +69,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('M Y  T A S K S'),
                     onTap: () {
-                      Navigator.pop(context);
+                      context.push('/');
                     },
                   ),
                   ListTile(

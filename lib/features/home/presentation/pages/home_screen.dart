@@ -16,7 +16,9 @@ class _MyHomeScreenState extends ConsumerState<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const UpperBar(),
+      appBar: const UpperBar(
+        appbartitle: 'N A I L  I T',
+      ),
       drawer: const DrawerMenu(),
       bottomNavigationBar: const NavBar(),
       body: Padding(

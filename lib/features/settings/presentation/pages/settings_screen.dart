@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nail_it/core/widgets/appbar.dart';
+import 'package:nail_it/core/widgets/drawer.dart';
+import 'package:nail_it/core/widgets/navbar.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -6,15 +9,14 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      appBar: const UpperBar(appbartitle: "S E T T I N G S"),
+      drawer: const DrawerMenu(),
+      bottomNavigationBar: const NavBar(),
       body: const Center(
           child: Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
-                  Text('Settings Screen'),
                   ListBody(
                     children: [
                       ListTile(

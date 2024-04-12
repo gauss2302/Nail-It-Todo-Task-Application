@@ -1,4 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:nail_it/core/widgets/appbar.dart';
+import 'package:nail_it/core/widgets/drawer.dart';
+import 'package:nail_it/core/widgets/navbar.dart';
 
 class AchievmentScreen extends StatefulWidget {
   const AchievmentScreen({super.key});
@@ -11,9 +16,11 @@ class _AchievmentScreenState extends State<AchievmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Achievments'),
+      appBar: UpperBar(
+        appbartitle: "A C H I E V M E N T S",
       ),
+      drawer: const DrawerMenu(),
+      bottomNavigationBar: const NavBar(),
       body: const Center(
         child: Text('Achievments Screen'),
       ),

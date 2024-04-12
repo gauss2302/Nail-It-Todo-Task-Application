@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nail_it/core/widgets/appbar.dart';
+import 'package:nail_it/core/widgets/appbar.dart';
+import 'package:nail_it/core/widgets/drawer.dart';
+import 'package:nail_it/core/widgets/navbar.dart';
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({super.key});
@@ -10,11 +14,13 @@ class GoalsScreen extends StatefulWidget {
 class _GoalsScreenState extends State<GoalsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Goals'),
+    return const Scaffold(
+      appBar: UpperBar(
+        appbartitle: 'M Y  G O A L S',
       ),
-      body: const Center(
+      drawer: DrawerMenu(),
+      bottomNavigationBar: NavBar(),
+      body: Center(
         child: Text('Goals Screen'),
       ),
     );

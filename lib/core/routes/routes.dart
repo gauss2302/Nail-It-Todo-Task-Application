@@ -13,7 +13,7 @@ part 'routes.g.dart';
 route(RouteRef _) => _routes;
 
 final _routes = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(
       path: "/",

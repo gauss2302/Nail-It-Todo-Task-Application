@@ -1,10 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:nail_it/core/theme/app_pallete.dart';
 import 'package:nail_it/core/theme/fonts.dart';
 
 class UpperBar extends StatelessWidget implements PreferredSizeWidget {
-  const UpperBar({super.key});
+  const UpperBar({
+    Key? key,
+    required this.appbartitle,
+  }) : super(key: key);
 
+  final String appbartitle;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -29,8 +35,8 @@ class UpperBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         1.0,
       ),
-      title: const Text(
-        'N A I L  I T 🫠 ',
+      title: Text(
+        appbartitle,
         style: TextStyle(color: Colors.white, fontFamily: Fonts.raleway),
       ),
       toolbarOpacity: 0.8,
