@@ -5,7 +5,7 @@ import 'package:nail_it/core/theme/fonts.dart';
 import 'package:nail_it/features/explore/presentation/pages/explore_screen.dart';
 import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';
 import 'package:nail_it/features/search/presentation/pages/search_screen.dart';
-import 'package:nail_it/features/task/presentation/pages/task_screen.dart';
+import 'package:nail_it/features/home/presentation/pages/home_screen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _NavBarState extends State<NavBar> {
     int _currentIndex = 0;
 
     final List<Widget> badgeCount = [
-      const TaskScreen(),
+      const MyHomeScreen(),
       const ExploreScreen(),
       const SearchScreen(),
       const MyProfilePage(),
