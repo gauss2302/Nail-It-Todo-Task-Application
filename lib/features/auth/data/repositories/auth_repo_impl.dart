@@ -13,28 +13,21 @@ class AuthRepoImpl implements AuthRepo {
   final ConnectionChecker connectionChecker;
 
   AuthRepoImpl(this.remoteDataSource, this.connectionChecker);
-  
+
   @override
-  Future<Either<Failure, UserEntities>> signInWithEmailPassword({required String email, required String password}) {
+  Future<Either<Failure, UserEntities>> signInWithEmailPassword(
+      {required String email, required String password}) {
     // TODO: implement signInWithEmailPassword
     throw UnimplementedError();
   }
-  
+
   @override
-  Future<Either<Failure, UserEntities>> signUpWithEmailPassword({
-    required String email, 
-    required String username, 
-    required String password
-    
-    }) async {
-      return _getUser(
-        () => await remoteDataSource.signUpWithEmailPassword(
-          email: email, 
-          username: username, 
-          password: password,
-          ),
-      );
-   
+  Future<Either<Failure, UserEntities>> signUpWithEmailPassword(
+      {required String email,
+      required String username,
+      required String password}) async {
+    return _getUser(() => remoteDataSource.signUpWithEmailPassword(
+        email: email, username: username, password: password));
   }
 
   Future<Either<Failure, UserEntities>> _getUser(
@@ -49,6 +42,4 @@ class AuthRepoImpl implements AuthRepo {
       return left(Failure(e.message));
     }
   }
-
-
 }

@@ -1,19 +1,12 @@
 import 'package:nail_it/features/auth/domain/entities/user_entities.dart';
 
 class UserModel extends UserEntities {
-  final String id;
-  final String username;
-  final String email;
-  final String name;
-  final String photoUrl;
-
-  UserModel({
-    required this.id,
-    required this.username,
-    required this.email,
-    required this.name,
-    required this.photoUrl,
-  }) : super(id: '', username: '', email: '', name: '', photoUrl: '');
+  UserModel(
+      {required super.id,
+      required super.username,
+      required super.email,
+      required super.name,
+      required super.photoUrl});
 
   factory UserModel.fromJson(Map<String, dynamic> map) {
     return UserModel(
@@ -33,21 +26,11 @@ class UserModel extends UserEntities {
     String? photoUrl,
   }) {
     return UserModel(
-      id: id ?? this.id,
-      username: username ?? this.username,
-      email: email ?? this.email,
-      name: name ?? this.name,
-      photoUrl: photoUrl ?? this.photoUrl,
+      id: id ?? super.id,
+      username: username ?? super.username,
+      email: email ?? super.email,
+      name: name ?? super.name,
+      photoUrl: photoUrl ?? super.photoUrl,
     );
   }
-
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'id': id,
-  //     'username': username,
-  //     'email': email,
-  //     'name': name,
-  //     'photoUrl': photoUrl,
-  //   };
-  // }
 }
