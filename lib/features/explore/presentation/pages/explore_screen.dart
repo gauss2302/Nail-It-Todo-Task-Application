@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+  const ExploreScreen({super.key});
 
   @override
   State<ExploreScreen> createState() => _ExploreScreenState();

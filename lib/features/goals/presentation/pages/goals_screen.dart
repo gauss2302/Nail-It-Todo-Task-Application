@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
 import 'package:nail_it/core/widgets/navbar.dart';
@@ -16,18 +14,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UpperBar(
+      appBar: const UpperBar(
         appbartitle: 'M Y  G O A L S',
       ),
-      drawer: DrawerMenu(),
-      bottomNavigationBar: NavBar(),
+      drawer: const DrawerMenu(),
+      bottomNavigationBar: const NavBar(),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
+              const Text(
                 'My Goals',
                 style: TextStyle(
                   fontSize: 30,

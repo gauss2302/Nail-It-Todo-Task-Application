@@ -6,9 +6,9 @@ import 'package:nail_it/core/theme/fonts.dart';
 
 class UpperBar extends StatelessWidget implements PreferredSizeWidget {
   const UpperBar({
-    Key? key,
+    super.key,
     required this.appbartitle,
-  }) : super(key: key);
+  });
 
   final String appbartitle;
   @override
@@ -37,7 +37,7 @@ class UpperBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         appbartitle,
-        style: TextStyle(color: Colors.white, fontFamily: Fonts.raleway),
+        style: const TextStyle(color: Colors.white, fontFamily: Fonts.raleway),
       ),
       toolbarOpacity: 0.8,
       backgroundColor: AppPallete.blueColor,

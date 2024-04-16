@@ -2,13 +2,9 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:nail_it/core/theme/fonts.dart';
-import 'package:nail_it/features/explore/presentation/pages/explore_screen.dart';
-import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';
-import 'package:nail_it/features/search/presentation/pages/search_screen.dart';
-import 'package:nail_it/features/home/presentation/pages/home_screen.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+  const NavBar({super.key});
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -17,21 +13,21 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = 0;
+    int currentIndex = 0;
 
-    final List<Widget> badgeCount = [
-      const MyHomeScreen(),
-      const ExploreScreen(),
-      const SearchScreen(),
-      const MyProfilePage(),
-    ];
+    // final List<Widget> badgeCount = [
+    //   const MyHomeScreen(),
+    //   const ExploreScreen(),
+    //   const SearchScreen(),
+    //   const MyProfilePage(),
+    // ];
 
     return CustomNavigationBar(
       iconSize: 30.0,
       selectedColor: Colors.white,
       strokeColor: Colors.white,
       unSelectedColor: Colors.grey[600],
-      backgroundColor: Color.fromARGB(255, 214, 111, 216),
+      backgroundColor: const Color.fromARGB(255, 214, 111, 216),
       borderRadius: const Radius.circular(20.0),
       blurEffect: true,
       opacity: 0.8,
@@ -60,10 +56,10 @@ class _NavBarState extends State<NavBar> {
           title: const Text("Me"),
         ),
       ],
-      currentIndex: _currentIndex,
+      currentIndex: currentIndex,
       onTap: (badgeCount) {
         setState(() {
-          _currentIndex = badgeCount;
+          currentIndex = badgeCount;
         });
       },
       // isFloating: true,

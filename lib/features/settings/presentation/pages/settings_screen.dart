@@ -8,11 +8,11 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const UpperBar(appbartitle: "S E T T I N G S"),
-      drawer: const DrawerMenu(),
-      bottomNavigationBar: const NavBar(),
-      body: const Center(
+    return const Scaffold(
+      appBar: UpperBar(appbartitle: "S E T T I N G S"),
+      drawer: DrawerMenu(),
+      bottomNavigationBar: NavBar(),
+      body: Center(
           child: Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
@@ -20,16 +20,16 @@ class SettingsScreen extends StatelessWidget {
                   ListBody(
                     children: [
                       ListTile(
-                        title: const Text('Language'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: Text('Language'),
+                        trailing: Icon(Icons.arrow_forward_ios),
                       ),
                       ListTile(
-                        title: const Text('Theme'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: Text('Theme'),
+                        trailing: Icon(Icons.arrow_forward_ios),
                       ),
                       ListTile(
-                        title: const Text('Notifications'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: Text('Notifications'),
+                        trailing: Icon(Icons.arrow_forward_ios),
                       ),
                     ],
                   ),

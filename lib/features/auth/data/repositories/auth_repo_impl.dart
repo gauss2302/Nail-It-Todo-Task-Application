@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fpdart/src/either.dart';
 import 'package:nail_it/core/error/exception.dart';
-
 import 'package:nail_it/core/error/failure.dart';
 import 'package:nail_it/core/network/connection_checker.dart';
 import 'package:nail_it/features/auth/data/datasources/auth_data.dart';
