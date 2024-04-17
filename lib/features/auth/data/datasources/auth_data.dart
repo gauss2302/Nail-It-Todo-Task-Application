@@ -29,8 +29,21 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<UserModel> signInWithEmailPassword(
-      {required String email, required String password}) {
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    try {
+      final res = await superbaseClient.auth.signInWithPassword(
+        password: password,
+        email: email,
+      );
+      if (res.user == null) {
+        throw const ServerException('User is null!');
+      }
+      return UserModel.fromJson(res.user!.toJson());
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 
   @override

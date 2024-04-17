@@ -16,8 +16,8 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, UserEntities>> signInWithEmailPassword(
       {required String email, required String password}) {
-    // TODO: implement signInWithEmailPassword
-    throw UnimplementedError();
+    return _getUser(() => remoteDataSource.signInWithEmailPassword(
+        email: email, password: password));
   }
 
   @override
