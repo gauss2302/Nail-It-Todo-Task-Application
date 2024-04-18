@@ -48,14 +48,4 @@ final _routes = GoRouter(
           const MaterialPage(child: SettingsScreen()),
     ),
   ],
-  redirect: (context, state) {
-    // ignore: prefer_const_declarations
-    final isAuthenticated = false;
-
-    if (isAuthenticated) {
-      return '/profile';
-    } else {
-      return '/';
-    }
-  },
 );
