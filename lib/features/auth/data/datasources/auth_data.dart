@@ -3,6 +3,7 @@ import 'package:nail_it/features/auth/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthDataSource {
+  Session? get session;
   Future<UserModel> signUpWithEmailPassword({
     required String username,
     required String email,
@@ -26,6 +27,9 @@ class AuthDataSourceImpl implements AuthDataSource {
   Future<UserModel> getCurrentUserData() {
     throw UnimplementedError();
   }
+
+  @override
+  Session? get session => superbaseClient.auth.currentSession;
 
   @override
   Future<UserModel> signInWithEmailPassword(
@@ -59,6 +63,7 @@ class AuthDataSourceImpl implements AuthDataSource {
           'username': username,
         },
       );
+
       if (res.user != null) {
         throw const ServerException("User already exists");
       }
