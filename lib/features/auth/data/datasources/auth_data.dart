@@ -16,6 +16,8 @@ abstract interface class AuthDataSource {
   });
 
   Future<UserModel> getCurrentUserData();
+
+  Future<void> checkAppAnon();
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
@@ -73,5 +75,11 @@ class AuthDataSourceImpl implements AuthDataSource {
     } catch (e) {
       throw ServerException(e.toString());
     }
+  }
+
+  @override
+  Future<void> checkAppAnon() {
+    // TODO: implement checkAppAnon
+    throw UnimplementedError();
   }
 }

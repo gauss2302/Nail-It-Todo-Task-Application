@@ -13,7 +13,7 @@ void main() async {
   String superbaseKey = dotenv.env['SUPERBASE_KEY']!;
 
   final superbase =
-      await Supabase.initialize(url: 'SUPERBASE_URL', anonKey: 'SUPERBASE_KEY');
+      await Supabase.initialize(url: superbaseUrl, anonKey: superbaseKey);
   runApp(const ProviderScope(child: MyApp()));
 }
 
