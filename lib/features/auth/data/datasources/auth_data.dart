@@ -15,7 +15,7 @@ abstract interface class AuthDataSource {
     required String password,
   });
 
-  Future<UserModel> getCurrentUserData();
+  Future<UserModel?> getCurrentUserData();
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
@@ -24,8 +24,21 @@ class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl(this.superbaseClient);
 
   @override
-  Future<UserModel> getCurrentUserData() {
-    throw UnimplementedError();
+  Future<UserModel?> getCurrentUserData() async {
+    try {
+      if (session != null) {
+        final userData = await superbaseClient.from('profiles').select().eq(
+              'id',
+              session!.user.id,
+            );
+        return UserModel.fromJson(userData.first).copyWith(
+          email: session!.user.email,
+        );
+      }
+      return null;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 
   @override
