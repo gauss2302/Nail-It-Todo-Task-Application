@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
-import 'package:nail_it/core/widgets/navbar.dart';
 
 class AchievmentScreen extends StatefulWidget {
   const AchievmentScreen({super.key});

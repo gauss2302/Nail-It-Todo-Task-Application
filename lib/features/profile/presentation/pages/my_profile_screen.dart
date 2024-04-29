@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
-import 'package:nail_it/core/widgets/navbar.dart';
 
 class MyProfilePage extends StatelessWidget {
   const MyProfilePage({super.key});
