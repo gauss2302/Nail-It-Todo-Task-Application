@@ -18,7 +18,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
         appbartitle: 'M Y  G O A L S',
       ),
       drawer: const DrawerMenu(),
-      bottomNavigationBar: const NavBar(),
+      // bottomNavigationBar: const NavBar(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20),

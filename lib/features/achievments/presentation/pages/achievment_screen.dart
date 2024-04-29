@@ -20,7 +20,7 @@ class _AchievmentScreenState extends State<AchievmentScreen> {
         appbartitle: "A C H I E V M E N T S",
       ),
       drawer: const DrawerMenu(),
-      bottomNavigationBar: const NavBar(),
+      // bottomNavigationBar: const NavBar(),
       body: const Center(
         child: Text('Achievments Screen'),
       ),

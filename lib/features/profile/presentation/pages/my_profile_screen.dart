@@ -11,7 +11,7 @@ class MyProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: const UpperBar(appbartitle: 'M Y  P R O F I L E'),
       drawer: const DrawerMenu(),
-      bottomNavigationBar: const NavBar(),
+      // bottomNavigationBar: const NavBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0),

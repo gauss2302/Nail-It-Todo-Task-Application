@@ -11,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
     return const Scaffold(
       appBar: UpperBar(appbartitle: "S E T T I N G S"),
       drawer: DrawerMenu(),
-      bottomNavigationBar: NavBar(),
+      // bottomNavigationBar: NavBar(),
       body: Center(
           child: Padding(
               padding: EdgeInsets.all(10.0),

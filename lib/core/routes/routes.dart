@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nail_it/core/widgets/navbar.dart';
 import 'package:nail_it/features/achievments/presentation/pages/achievment_screen.dart';
 import 'package:nail_it/features/auth/presentation/pages/sign_in_screen.dart';
 import 'package:nail_it/features/auth/presentation/pages/sign_up_screen.dart';
@@ -14,38 +15,63 @@ part 'routes.g.dart';
 @riverpod
 route(RouteRef _) => _routes;
 
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>();
+
 final _routes = GoRouter(
-  initialLocation: '/',
-  routes: <RouteBase>[
-    GoRoute(
-      path: "/",
-      builder: (context, state) => const MyHomeScreen(),
-    ),
-    GoRoute(
-        path: '/login',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: SignInScreen())),
-    GoRoute(
-        path: '/signup',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: SignUpScreen())),
-    GoRoute(
-        path: '/profile',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: MyProfilePage())),
-    GoRoute(
-      path: '/goals',
-      pageBuilder: (context, state) => const MaterialPage(child: GoalsScreen()),
-    ),
-    GoRoute(
-      path: '/achievment',
-      pageBuilder: (context, state) =>
-          const MaterialPage(child: AchievmentScreen()),
-    ),
-    GoRoute(
-      path: '/settings',
-      pageBuilder: (context, state) =>
-          const MaterialPage(child: SettingsScreen()),
-    ),
+  navigatorKey: _rootNavigatorKey,
+  initialLocation: '/home',
+  routes: [
+    StatefulShellRoute.indexedStack(
+        builder: (BuildContext context, GoRouterState state,
+            StatefulNavigationShell navigationShell) {
+          return NavBar(navigationShell: navigationShell);
+        },
+        branches: <StatefulShellBranch>[
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: "/home",
+              builder: (BuildContext context, GoRouterState state) =>
+                  const MyHomeScreen(),
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/goals',
+              pageBuilder: (context, state) =>
+                  const MaterialPage(child: GoalsScreen()),
+            ),
+            GoRoute(
+              path: '/achievment',
+              pageBuilder: (context, state) =>
+                  const MaterialPage(child: AchievmentScreen()),
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+                path: '/login',
+                pageBuilder: (context, state) =>
+                    const MaterialPage(child: SignInScreen())),
+            GoRoute(
+                path: '/signup',
+                pageBuilder: (context, state) =>
+                    const MaterialPage(child: SignUpScreen())),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/profile',
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const MaterialPage(child: MyProfilePage()),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'settings',
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      const MaterialPage(child: SettingsScreen()),
+                ),
+              ],
+            ),
+          ]),
+        ]),
   ],
 );

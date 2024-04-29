@@ -20,7 +20,7 @@ class _MyHomeScreenState extends ConsumerState<MyHomeScreen> {
         appbartitle: 'N A I L  I T',
       ),
       drawer: const DrawerMenu(),
-      bottomNavigationBar: const NavBar(),
+      // bottomNavigationBar: const NavBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
         child: Center(
