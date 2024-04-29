@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
-import 'package:nail_it/core/widgets/navbar.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
