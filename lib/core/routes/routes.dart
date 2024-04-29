@@ -16,12 +16,10 @@ part 'routes.g.dart';
 route(RouteRef _) => _routes;
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>();
 
 final _routes = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/home',
+  initialLocation: '/',
   routes: [
     StatefulShellRoute.indexedStack(
         builder: (BuildContext context, GoRouterState state,
@@ -31,7 +29,7 @@ final _routes = GoRouter(
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: [
             GoRoute(
-              path: "/home",
+              path: "/",
               builder: (BuildContext context, GoRouterState state) =>
                   const MyHomeScreen(),
             ),
@@ -63,15 +61,15 @@ final _routes = GoRouter(
               path: '/profile',
               pageBuilder: (BuildContext context, GoRouterState state) =>
                   const MaterialPage(child: MyProfilePage()),
-              routes: <RouteBase>[
-                GoRoute(
-                  path: 'settings',
-                  pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const MaterialPage(child: SettingsScreen()),
-                ),
-              ],
             ),
           ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/settings',
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const MaterialPage(child: SettingsScreen()),
+            ),
+          ])
         ]),
   ],
 );

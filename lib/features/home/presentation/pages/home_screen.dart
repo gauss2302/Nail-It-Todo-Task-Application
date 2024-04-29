@@ -1,9 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
-import 'package:nail_it/core/widgets/navbar.dart';
 
 class MyHomeScreen extends ConsumerStatefulWidget {
   const MyHomeScreen({super.key});
@@ -27,6 +27,7 @@ class _MyHomeScreenState extends ConsumerState<MyHomeScreen> {
           child: Column(
             children: [
               const SingleChildScrollView(
+                dragStartBehavior: DragStartBehavior.down,
                 padding: EdgeInsets.all(24),
                 child: Column(
                   children: [

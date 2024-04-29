@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nail_it/core/widgets/appbar.dart';
 import 'package:nail_it/core/widgets/drawer.dart';
 import 'package:nail_it/core/widgets/navbar.dart';
@@ -74,6 +75,18 @@ class MyProfilePage extends StatelessWidget {
                         subtitle: const Text('Edit your profile'),
                         onTap: () {
                           // Navigate to the profile edit page
+                        },
+                      )),
+                      ListTileTheme(
+                          child: ListTile(
+                        leading: const Icon(Icons.settings),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        title: const Text('My Settings'),
+                        subtitle: const Text('Edit your settings'),
+                        onTap: () {
+                          context.push('/settings');
                         },
                       )),
                       ListTileTheme(

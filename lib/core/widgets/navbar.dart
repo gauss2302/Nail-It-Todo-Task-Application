@@ -27,7 +27,6 @@ class NavBar extends StatelessWidget {
         opacity: 0.8,
         items: [
           CustomNavigationBarItem(
-            badgeCount: 0,
             icon: const LineIcon.mapPin(),
             title: const Text(
               "Home",

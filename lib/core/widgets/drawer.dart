@@ -9,6 +9,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: ShapeBorder.lerp(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -65,9 +66,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                       color: AppPallete.gradient1,
                     ),
                     title: const Text('M Y  T A S K S'),
-                    onTap: () {
-                      context.push('/');
-                    },
+                    onTap: () => context.push('/'),
                   ),
                   ListTile(
                     leading: const LineIcon.archive(
