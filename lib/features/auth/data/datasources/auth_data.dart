@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthDataSource {
   Session? get session;
+
   Future<UserModel> signUpWithEmailPassword({
     required String username,
     required String email,
@@ -24,6 +25,9 @@ class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl(this.superbaseClient);
 
   @override
+  Session? get session => superbaseClient.auth.currentSession;
+
+  @override
   Future<UserModel?> getCurrentUserData() async {
     try {
       if (session != null) {
@@ -40,9 +44,6 @@ class AuthDataSourceImpl implements AuthDataSource {
       throw ServerException(e.toString());
     }
   }
-
-  @override
-  Session? get session => superbaseClient.auth.currentSession;
 
   @override
   Future<UserModel> signInWithEmailPassword(

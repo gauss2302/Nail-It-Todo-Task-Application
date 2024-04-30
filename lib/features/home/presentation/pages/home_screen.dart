@@ -41,27 +41,12 @@ class _MyHomeScreenState extends ConsumerState<MyHomeScreen> {
                   ],
                 ),
               ),
-              Text(
-                'Awesome Line Icons are great!',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(
-                height: 48.0,
-              ),
+              Text('Home Screen',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  softWrap: true,
+                  selectionColor: const Color.fromARGB(125, 217, 3, 255)),
+
               // Using LineIcon (no 's') for concision. It returns an Icon object
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  LineIcon.hippo(
-                    size: 48.0,
-                    color: Colors.blue,
-                  ),
-                  LineIcon.heart(
-                    size: 48.0,
-                    color: Colors.red,
-                  ),
-                ],
-              ),
             ],
           ),
         ),
