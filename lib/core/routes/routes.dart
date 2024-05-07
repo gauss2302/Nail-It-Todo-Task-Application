@@ -40,6 +40,8 @@ final _routes = GoRouter(
               pageBuilder: (context, state) =>
                   const MaterialPage(child: GoalsScreen()),
             ),
+          ]),
+          StatefulShellBranch(routes: [
             GoRoute(
               path: '/achievment',
               pageBuilder: (context, state) =>
@@ -48,28 +50,16 @@ final _routes = GoRouter(
           ]),
           StatefulShellBranch(routes: [
             GoRoute(
-                path: '/login',
-                pageBuilder: (context, state) =>
-                    const MaterialPage(child: SignInScreen())),
-            GoRoute(
-                path: '/signup',
-                pageBuilder: (context, state) =>
-                    const MaterialPage(child: SignUpScreen())),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
               path: '/profile',
               pageBuilder: (BuildContext context, GoRouterState state) =>
                   const MaterialPage(child: MyProfilePage()),
             ),
-          ]),
-          StatefulShellBranch(routes: [
             GoRoute(
               path: '/settings',
               pageBuilder: (BuildContext context, GoRouterState state) =>
                   const MaterialPage(child: SettingsScreen()),
             ),
-          ])
+          ]),
         ]),
   ],
 );

@@ -75,7 +75,8 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     title: const Text('G O A L S'),
                     onTap: () {
-                      context.push('/goals');
+                      // context.push('/goals');
+                      context.go('/goals');
                     },
                   ),
                   ListTile(

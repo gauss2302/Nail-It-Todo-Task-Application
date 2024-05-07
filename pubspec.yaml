@@ -26,8 +26,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
-  bloc: ^8.1.4
-  flutter_bloc: ^8.1.5
 
   line_icons: ^2.0.3
   custom_navigation_bar: ^0.8.2
