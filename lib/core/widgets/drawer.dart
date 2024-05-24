@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:nail_it/core/theme/app_pallete.dart';
 
@@ -61,18 +62,14 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ListTile(
-                    leading: const LineIcon.tasks(
-                      size: 40.0,
-                      color: AppPallete.gradient1,
-                    ),
+                    leading: const Icon(MingCute.task_2_fill,
+                        size: 40, color: AppPallete.gradient1),
                     title: const Text('M Y  T A S K S'),
                     onTap: () => context.push('/'),
                   ),
                   ListTile(
-                    leading: const LineIcon.archive(
-                      size: 40.0,
-                      color: AppPallete.gradient1,
-                    ),
+                    leading: const Icon(MingCute.task_line,
+                        size: 40, color: AppPallete.gradient1),
                     title: const Text('G O A L S'),
                     onTap: () {
                       // context.push('/goals');
@@ -80,35 +77,30 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     },
                   ),
                   ListTile(
-                    leading: const LineIcon.award(
-                      size: 40.0,
-                      color: AppPallete.gradient1,
-                    ),
+                    leading: const Icon(MingCute.birthday_2_fill,
+                        size: 40, color: AppPallete.gradient1),
                     title: const Text('A C H I E V E M E N T S'),
                     onTap: () {
                       context.push('/achievment');
                     },
                   ),
                   ListTile(
-                    leading: const LineIcon.personEnteringBooth(
-                      size: 40.0,
-                      color: AppPallete.gradient1,
-                    ),
+                    leading: const Icon(MingCute.profile_fill,
+                        size: 40, color: AppPallete.gradient1),
                     title: const Text('P R O F I L E'),
                     onTap: () {
                       context.push('/profile');
                     },
                   ),
                   ListTile(
-                    leading: const LineIcon.cog(
-                      size: 40.0,
-                      color: AppPallete.gradient1,
-                    ),
+                    leading: const Icon(MingCute.settings_1_fill,
+                        size: 40, color: AppPallete.gradient1),
                     title: const Text('S E T T I N G S'),
                     onTap: () {
                       context.push('/settings');
                     },
                   ),
+                  const SizedBox(height: 30),
                   const Divider(
                     indent: 1,
                     color: AppPallete.gradient1,
@@ -117,27 +109,24 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   Container(
                     alignment: Alignment.bottomCenter,
-                    child: Column(
+                    child: const Column(
                       children: [
                         ListTile(
-                          leading: const LineIcon.googlePlay(
-                            size: 40.0,
-                            color: AppPallete.gradient1,
-                          ),
-                          title: const Text('Google Play'),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
+                          leading: Icon(MingCute.reddit_fill,
+                              size: 50,
+                              color: Color.fromARGB(255, 238, 28, 28)),
+                          title: Text('Reddit'),
                         ),
                         ListTile(
-                          leading: const LineIcon.appStore(
-                            size: 40.0,
-                            color: AppPallete.gradient1,
-                          ),
-                          title: const Text('App Store'),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
+                          leading: Icon(MingCute.wechat_fill,
+                              size: 50,
+                              color: Color.fromARGB(255, 42, 237, 104)),
+                          title: Text('WeChat'),
+                        ),
+                        ListTile(
+                          leading: Icon(MingCute.github_fill,
+                              size: 50, color: Color.fromARGB(255, 0, 0, 0)),
+                          title: Text('GitHub'),
                         ),
                       ],
                     ),

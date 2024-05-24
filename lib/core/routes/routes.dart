@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nail_it/core/widgets/navbar.dart';
 import 'package:nail_it/features/achievments/presentation/pages/achievment_screen.dart';
-import 'package:nail_it/features/auth/presentation/pages/sign_in_screen.dart';
-import 'package:nail_it/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:nail_it/features/goals/presentation/pages/goals_screen.dart';
 import 'package:nail_it/features/home/presentation/pages/home_screen.dart';
 import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';

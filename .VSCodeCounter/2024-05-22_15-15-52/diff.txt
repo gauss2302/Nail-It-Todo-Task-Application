@@ -1,0 +1,103 @@
+Date : 2024-05-22 15:15:52
+Directory : /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib
+Total : 32 files,  817 codes, 24 comments, 104 blanks, all 945 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         32 |        817 |         24 |        104 |        945 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                     | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                        |         32 |        817 |         24 |        104 |        945 |
+| . (Files)                                                                                                                |          1 |         25 |          0 |          8 |         33 |
+| core                                                                                                                     |         14 |        385 |          9 |         44 |        438 |
+| core/error                                                                                                               |          2 |          8 |          0 |          2 |         10 |
+| core/network                                                                                                             |          1 |         11 |          0 |          4 |         15 |
+| core/routes                                                                                                              |          2 |         73 |          7 |         11 |         91 |
+| core/theme                                                                                                               |          3 |         19 |          0 |          7 |         26 |
+| core/usecase                                                                                                             |          1 |          6 |          0 |          3 |          9 |
+| core/utils                                                                                                               |          2 |          0 |          0 |          3 |          3 |
+| core/widgets                                                                                                             |          3 |        268 |          2 |         14 |        284 |
+| features                                                                                                                 |         17 |        407 |         15 |         52 |        474 |
+| features/achievments                                                                                                     |          1 |         22 |          2 |          5 |         29 |
+| features/achievments/presentation                                                                                        |          1 |         22 |          2 |          5 |         29 |
+| features/achievments/presentation/pages                                                                                  |          1 |         22 |          2 |          5 |         29 |
+| features/auth                                                                                                            |          2 |         35 |          2 |         10 |         47 |
+| features/auth/presentation                                                                                               |          2 |         35 |          2 |         10 |         47 |
+| features/auth/presentation/bloc                                                                                          |          2 |         35 |          2 |         10 |         47 |
+| features/explore                                                                                                         |          1 |         12 |          0 |          4 |         16 |
+| features/explore/presentation                                                                                            |          1 |         12 |          0 |          4 |         16 |
+| features/explore/presentation/pages                                                                                      |          1 |         12 |          0 |          4 |         16 |
+| features/goals                                                                                                           |          7 |         64 |          2 |         11 |         77 |
+| features/goals/data                                                                                                      |          3 |          0 |          0 |          3 |          3 |
+| features/goals/data/datasources                                                                                          |          1 |          0 |          0 |          1 |          1 |
+| features/goals/data/models                                                                                               |          1 |          0 |          0 |          1 |          1 |
+| features/goals/data/repositories                                                                                         |          1 |          0 |          0 |          1 |          1 |
+| features/goals/domain                                                                                                    |          3 |          0 |          0 |          3 |          3 |
+| features/goals/domain/entities                                                                                           |          1 |          0 |          0 |          1 |          1 |
+| features/goals/domain/repositories                                                                                       |          1 |          0 |          0 |          1 |          1 |
+| features/goals/domain/usecases                                                                                           |          1 |          0 |          0 |          1 |          1 |
+| features/goals/presentation                                                                                              |          1 |         64 |          2 |          5 |         71 |
+| features/goals/presentation/pages                                                                                        |          1 |         64 |          2 |          5 |         71 |
+| features/home                                                                                                            |          1 |         50 |          2 |          5 |         57 |
+| features/home/presentation                                                                                               |          1 |         50 |          2 |          5 |         57 |
+| features/home/presentation/pages                                                                                         |          1 |         50 |          2 |          5 |         57 |
+| features/profile                                                                                                         |          1 |        129 |          6 |          4 |        139 |
+| features/profile/presentation                                                                                            |          1 |        129 |          6 |          4 |        139 |
+| features/profile/presentation/pages                                                                                      |          1 |        129 |          6 |          4 |        139 |
+| features/search                                                                                                          |          1 |         18 |          0 |          4 |         22 |
+| features/search/presentation                                                                                             |          1 |         18 |          0 |          4 |         22 |
+| features/search/presentation/pages                                                                                       |          1 |         18 |          0 |          4 |         22 |
+| features/settings                                                                                                        |          1 |         36 |          1 |          3 |         40 |
+| features/settings/presentation                                                                                           |          1 |         36 |          1 |          3 |         40 |
+| features/settings/presentation/pages                                                                                     |          1 |         36 |          1 |          3 |         40 |
+| features/tasks                                                                                                           |          2 |         41 |          0 |          6 |         47 |
+| features/tasks/data                                                                                                      |          1 |         29 |          0 |          4 |         33 |
+| features/tasks/data/models                                                                                               |          1 |         29 |          0 |          4 |         33 |
+| features/tasks/domain                                                                                                    |          1 |         12 |          0 |          2 |         14 |
+| features/tasks/domain/entities                                                                                           |          1 |         12 |          0 |          2 |         14 |
++--------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                 | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/error/exception.dart                                      | Dart     |          4 |          0 |          1 |          5 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/error/failure.dart                                        | Dart     |          4 |          0 |          1 |          5 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/network/connection_checker.dart                           | Dart     |         11 |          0 |          4 |         15 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/routes/routes.dart                                        | Dart     |         61 |          0 |          5 |         66 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/routes/routes.g.dart                                      | Dart     |         12 |          7 |          6 |         25 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/theme/app_pallete.dart                                    | Dart     |         14 |          0 |          2 |         16 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/theme/fonts.dart                                          | Dart     |          5 |          0 |          3 |          8 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/theme/theme.dart                                          | Dart     |          0 |          0 |          2 |          2 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/usecase/usecase.dart                                      | Dart     |          6 |          0 |          3 |          9 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/utils/error.dart                                          | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/utils/fonts.dart                                          | Dart     |          0 |          0 |          2 |          2 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/widgets/appbar.dart                                       | Dart     |         55 |          1 |          5 |         61 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/widgets/drawer.dart                                       | Dart     |        152 |          1 |          4 |        157 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/core/widgets/navbar.dart                                       | Dart     |         61 |          0 |          5 |         66 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/achievments/presentation/pages/achievment_screen.dart | Dart     |         22 |          2 |          5 |         29 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/auth/presentation/bloc/auth_bloc.dart                 | Dart     |          4 |          0 |          0 |          4 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/auth/presentation/bloc/auth_event.dart                | Dart     |         31 |          2 |         10 |         43 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/explore/presentation/pages/explore_screen.dart        | Dart     |         12 |          0 |          4 |         16 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/data/datasources/goals_data.dart                | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/data/models/goals_model.dart                    | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/data/repositories/goals_repo_impl.dart          | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/domain/entities/goals_entity.dart               | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/domain/repositories/goals_repo.dart             | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/domain/usecases/modify_goals.dart               | Dart     |          0 |          0 |          1 |          1 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/goals/presentation/pages/goals_screen.dart            | Dart     |         64 |          2 |          5 |         71 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/home/presentation/pages/home_screen.dart              | Dart     |         50 |          2 |          5 |         57 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/profile/presentation/pages/my_profile_screen.dart     | Dart     |        129 |          6 |          4 |        139 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/search/presentation/pages/search_screen.dart          | Dart     |         18 |          0 |          4 |         22 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/settings/presentation/pages/settings_screen.dart      | Dart     |         36 |          1 |          3 |         40 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/tasks/data/models/task_model.dart                     | Dart     |         29 |          0 |          4 |         33 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/features/tasks/domain/entities/task_entities.dart              | Dart     |         12 |          0 |          2 |         14 |
+| /Users/nikitashilov/Projects/Flutter_projects/nail_it/lib/main.dart                                                      | Dart     |         25 |          0 |          8 |         33 |
+| Total                                                                                                                    |          |        817 |         24 |        104 |        945 |
++--------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

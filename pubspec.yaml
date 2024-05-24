@@ -44,6 +44,9 @@ dependencies:
   internet_connection_checker_plus: ^2.3.0
   equatable: ^2.0.5
   freezed: ^2.5.2
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.5
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:
