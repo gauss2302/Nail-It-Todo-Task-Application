@@ -8,8 +8,10 @@ class AppPallete {
   static const Color borderColor = Color.fromRGBO(52, 51, 67, 1);
   static const Color whiteColor = Colors.white;
   static const Color greyColor = Colors.grey;
-  static const Color blueColor = Color.fromARGB(
-      255, 117, 136, 211); // Add a semicolon at the end of the line
+  static const Color blueColor = Color.fromARGB(255, 117, 136, 211); // Add a semicolon at the end of the line
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;
+
+  static const Color lightThemeAppBar = Color.fromRGBO(199, 108, 225, 1);
+  static const Color darkThemeAppBar = Color.fromARGB(255, 14, 55, 78);
 }

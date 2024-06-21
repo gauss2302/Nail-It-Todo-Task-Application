@@ -6,12 +6,6 @@ import 'package:nail_it/features/goals/presentation/pages/goals_screen.dart';
 import 'package:nail_it/features/home/presentation/pages/home_screen.dart';
 import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';
 import 'package:nail_it/features/settings/presentation/pages/settings_screen.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'routes.g.dart';
-
-@riverpod
-route(RouteRef _) => _routes;
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
