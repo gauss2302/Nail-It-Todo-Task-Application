@@ -50,9 +50,7 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Nail It',
-                          style:
-                              TextStyle(fontSize: 30.0, color: Colors.white)),
+                      Text('Nail It', style: TextStyle(fontSize: 30.0, color: Colors.white)),
                       FlutterLogo(size: 100.0),
                     ],
                   ),
@@ -62,14 +60,12 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ListTile(
-                    leading: const Icon(MingCute.task_2_fill,
-                        size: 40, color: AppPallete.gradient1),
+                    leading: const Icon(MingCute.task_2_fill, size: 40, color: AppPallete.gradient1),
                     title: const Text('M Y  T A S K S'),
-                    onTap: () => context.push('/'),
+                    onTap: () => context.push('/tasks'),
                   ),
                   ListTile(
-                    leading: const Icon(MingCute.task_line,
-                        size: 40, color: AppPallete.gradient1),
+                    leading: const Icon(MingCute.task_line, size: 40, color: AppPallete.gradient1),
                     title: const Text('G O A L S'),
                     onTap: () {
                       // context.push('/goals');
@@ -77,24 +73,21 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(MingCute.birthday_2_fill,
-                        size: 40, color: AppPallete.gradient1),
+                    leading: const Icon(MingCute.birthday_2_fill, size: 40, color: AppPallete.gradient1),
                     title: const Text('A C H I E V E M E N T S'),
                     onTap: () {
                       context.push('/achievment');
                     },
                   ),
                   ListTile(
-                    leading: const Icon(MingCute.profile_fill,
-                        size: 40, color: AppPallete.gradient1),
+                    leading: const Icon(MingCute.profile_fill, size: 40, color: AppPallete.gradient1),
                     title: const Text('P R O F I L E'),
                     onTap: () {
                       context.push('/profile');
                     },
                   ),
                   ListTile(
-                    leading: const Icon(MingCute.settings_1_fill,
-                        size: 40, color: AppPallete.gradient1),
+                    leading: const Icon(MingCute.settings_1_fill, size: 40, color: AppPallete.gradient1),
                     title: const Text('S E T T I N G S'),
                     onTap: () {
                       context.push('/settings');
@@ -112,20 +105,15 @@ class DrawerMenu extends StatelessWidget implements PreferredSizeWidget {
                     child: const Column(
                       children: [
                         ListTile(
-                          leading: Icon(MingCute.reddit_fill,
-                              size: 50,
-                              color: Color.fromARGB(255, 238, 28, 28)),
+                          leading: Icon(MingCute.reddit_fill, size: 50, color: Color.fromARGB(255, 238, 28, 28)),
                           title: Text('Reddit'),
                         ),
                         ListTile(
-                          leading: Icon(MingCute.wechat_fill,
-                              size: 50,
-                              color: Color.fromARGB(255, 42, 237, 104)),
+                          leading: Icon(MingCute.wechat_fill, size: 50, color: Color.fromARGB(255, 42, 237, 104)),
                           title: Text('WeChat'),
                         ),
                         ListTile(
-                          leading: Icon(MingCute.github_fill,
-                              size: 50, color: Color.fromARGB(255, 0, 0, 0)),
+                          leading: Icon(MingCute.github_fill, size: 50, color: Color.fromARGB(255, 0, 0, 0)),
                           title: Text('GitHub'),
                         ),
                       ],

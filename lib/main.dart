@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nail_it/core/theme/theme.dart';
-import 'package:nail_it/core/theme/theme_cubit/theme_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:nail_it/core/theme/theme.dart';
+import 'package:nail_it/core/theme/theme_cubit/theme_cubit.dart';
 import 'package:nail_it/core/routes/routes.dart';
 
 void main() async {
@@ -31,7 +31,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final routes = ref.read(routeProvider);
+    final routes = AppRouter().router;
 
     return BlocProvider(
       create: (context) => ThemeCubit(),
@@ -43,7 +43,7 @@ class MyApp extends ConsumerWidget {
             theme: AppTheme.light,
             darkTheme: AppTheme.dark,
             themeMode: state,
-            routerConfig: routes as RouterConfig<Object>?,
+            routerConfig: routes,
           );
         },
       ),
