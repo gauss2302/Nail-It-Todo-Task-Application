@@ -28,10 +28,10 @@ class UpperBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       shape: ShapeBorder.lerp(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
         1.0,
       ),

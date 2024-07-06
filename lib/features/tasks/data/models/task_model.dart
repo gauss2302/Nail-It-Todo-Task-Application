@@ -1,32 +1,50 @@
 import 'package:nail_it/features/tasks/domain/entities/task_entities.dart';
 
 class TaskModel extends TaskEntity {
-  TaskModel(
-      {required super.id,
-      required super.title,
-      required super.description,
-      required super.completed});
+  String id;
+  String title;
+  String description;
+  DateTime? startDateTime;
+  DateTime? stopDateTime;
+  bool completed;
 
-  factory TaskModel.fromJson(Map<String, dynamic> map) {
+
+  TaskModel({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.startDateTime,
+    required this.stopDateTime,
+     this.completed = false,
+
+  }) : super(id: '', title: '', description: '', startDateTime: null, stopDateTime: null, completed: false);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'completed': completed,
+      'startDateTime': startDateTime?.toIso8601String(),
+      'stopDateTime': stopDateTime?.toIso8601String(),
+    };
+  }
+  
+  factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      id: map['id'] ?? '',
-      title: map['title'] ?? '',
-      description: map['description'] ?? '',
-      completed: map['completed'] ?? false,
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      completed: json['completed'],
+      startDateTime: DateTime.parse(json['startDateTime']),
+      stopDateTime: DateTime.parse(json['stopDateTime']),
     );
   }
 
-  TaskModel copyWith({
-    String? id,
-    String? title,
-    String? description,
-    bool? completed,
-  }) {
-    return TaskModel(
-      id: id ?? super.id,
-      title: title ?? super.title,
-      description: description ?? super.description,
-      completed: completed ?? super.completed,
-    );
+  @override
+  String toString() {
+    return 'TaskModel{id: $id, title: $title, description: $description, '
+        'startDateTime: $startDateTime, stopDateTime: $stopDateTime, '
+        'completed: $completed}';
   }
 }
