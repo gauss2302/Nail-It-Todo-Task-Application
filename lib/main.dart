@@ -22,11 +22,12 @@ void main() async {
   String superbaseKey = dotenv.env['SUPERBASE_KEY']!;
 
   final superbase = await Supabase.initialize(url: superbaseUrl, anonKey: superbaseKey);
-  runApp(const ProviderScope(child: MyApp()));
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb ? HydratedStorage.webStorageDirectory : await getApplicationDocumentsDirectory(),
   );
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
