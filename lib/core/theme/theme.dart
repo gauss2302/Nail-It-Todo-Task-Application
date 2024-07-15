@@ -20,7 +20,7 @@ class AppTheme {
             backgroundColor: AppPallete.whiteColor, titleTextStyle: TextStyle(color: Colors.white, fontSize: 22)),
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.light,
-          seedColor: AppPallete.lightThemeAppBar,
+          seedColor: const Color.fromARGB(255, 85, 81, 87),
         ),
       );
 }
