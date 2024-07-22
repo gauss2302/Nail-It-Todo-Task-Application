@@ -4,32 +4,32 @@ import 'package:nail_it/features/tasks/data/datasources/localdatasource/task_loc
 import 'package:nail_it/features/tasks/data/models/task_model.dart';
 
 class TaskRepository {
-  final TaskDataProvider taskDataProvider;
+  final LocalTaskDataProvider localtaskDataProvider;
   TaskRepository({
-    required this.taskDataProvider,
+    required this.localtaskDataProvider,
   });
 
   Future<List<TaskModel>> getTasks() async {
-    return await taskDataProvider.getTasks();
+    return await localtaskDataProvider.getTasks();
   }
 
   Future<void> createNewTask(TaskModel taskModel) async {
-    return await taskDataProvider.createTask(taskModel);
+    return await localtaskDataProvider.createTask(taskModel);
   }
 
   Future<List<TaskModel>> updateTask(TaskModel taskModel) async {
-    return await taskDataProvider.updateTask(taskModel);
+    return await localtaskDataProvider.updateTask(taskModel);
   }
 
   Future<List<TaskModel>> deleteTask(TaskModel taskModel) async {
-    return await taskDataProvider.deleteTask(taskModel);
+    return await localtaskDataProvider.deleteTask(taskModel);
   }
 
   Future<List<TaskModel>> sortTasks(int sortOption) async {
-    return await taskDataProvider.sortTasks(sortOption);
+    return await localtaskDataProvider.sortTasks(sortOption);
   }
 
   Future<List<TaskModel>> searchTasks(String search) async {
-    return await taskDataProvider.searchTasks(search);
+    return await localtaskDataProvider.searchTasks(search);
   }
 }

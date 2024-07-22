@@ -4,11 +4,11 @@ import 'package:nail_it/features/tasks/data/models/task_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class TaskDataProvider {
+class LocalTaskDataProvider {
   SharedPreferences? prefs;
   List<TaskModel> tasks = [];
 
-  TaskDataProvider(this.prefs);
+  LocalTaskDataProvider(this.prefs);
 
   Future<List<TaskModel>> getTasks() async {
     try {

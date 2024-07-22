@@ -15,7 +15,6 @@ class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
   final UserModel user;
-
   const AuthSuccess(this.user);
 
   @override
@@ -24,7 +23,6 @@ class AuthSuccess extends AuthState {
 
 class AuthFailure extends AuthState {
   final String message;
-
   const AuthFailure(this.message);
 
   @override

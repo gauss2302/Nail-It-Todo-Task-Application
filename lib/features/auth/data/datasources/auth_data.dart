@@ -3,7 +3,7 @@ import 'package:nail_it/features/auth/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthDataSource {
-  Session? get session;
+  Session? get currentUserSession;
 
   Future<UserModel> signUpWithEmailPassword({
     required String username,
@@ -25,18 +25,18 @@ class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl(this.superbaseClient);
 
   @override
-  Session? get session => superbaseClient.auth.currentSession;
+  Session? get currentUserSession => superbaseClient.auth.currentSession;
 
   @override
   Future<UserModel?> getCurrentUserData() async {
     try {
-      if (session != null) {
+      if (currentUserSession != null) {
         final userData = await superbaseClient.from('profiles').select().eq(
               'id',
-              session!.user.id,
+              currentUserSession!.user.id,
             );
         return UserModel.fromJson(userData.first).copyWith(
-          email: session!.user.email,
+          email: currentUserSession!.user.email,
         );
       }
       return null;
@@ -46,8 +46,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<UserModel> signInWithEmailPassword(
-      {required String email, required String password}) async {
+  Future<UserModel> signInWithEmailPassword({required String email, required String password}) async {
     try {
       final res = await superbaseClient.auth.signInWithPassword(
         password: password,
@@ -66,9 +65,7 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<UserModel> signUpWithEmailPassword(
-      {required String username,
-      required String email,
-      required String password}) async {
+      {required String username, required String email, required String password}) async {
     try {
       final res = await superbaseClient.auth.signUp(
         password: password,
