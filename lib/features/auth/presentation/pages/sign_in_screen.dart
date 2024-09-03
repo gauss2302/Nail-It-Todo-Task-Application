@@ -72,7 +72,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         context.read<AuthBloc>().add(
                               SignInEventWithEmailandPasswordEvent(
                                 email: emailController.text,
-                                password: passwordController.text,
+                                password: passwordController.text, name: '',
                               ),
                             );
                       }

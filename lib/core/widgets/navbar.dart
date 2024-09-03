@@ -34,29 +34,26 @@ class NavBar extends StatelessWidget {
             ),
           ),
           CustomNavigationBarItem(
-            badgeCount: 1,
             icon: const LineIcon.earlybirds(),
             title: const Text("Explore"),
           ),
           CustomNavigationBarItem(
-            badgeCount: 2,
             icon: const LineIcon.search(),
             title: const Text("Search"),
           ),
           CustomNavigationBarItem(
-            badgeCount: 3,
             icon: const LineIcon.user(),
             title: const Text("Me"),
           ),
         ],
         isFloating: true,
         currentIndex: navigationShell.currentIndex,
-        onTap: (int index) => _onTap(context, index),
+        onTap: (int index) => onTap(context, index),
       ),
     );
   }
 
-  void _onTap(BuildContext context, int index) {
+  void onTap(BuildContext context, int index) {
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,

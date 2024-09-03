@@ -19,10 +19,12 @@ sealed class SignUpEvent extends AuthEvent {
 class SignInEventWithEmailandPasswordEvent extends SignInEvent {
   final String email;
   final String password;
+  final String name;
 
   const SignInEventWithEmailandPasswordEvent({
     required this.email,
     required this.password,
+    required this.name,
   });
 
   @override

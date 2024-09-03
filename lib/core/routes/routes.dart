@@ -53,6 +53,12 @@ class AppRouter {
                 pageBuilder: (BuildContext context, GoRouterState state) => const MaterialPage(child: SettingsScreen()),
               ),
             ]),
+            StatefulShellBranch(routes: [
+              GoRoute(
+                path: '/tasks',
+                pageBuilder: (context, state) => const MaterialPage(child: TaskScreen()),
+              ),
+            ]),
           ],
         ),
       ],

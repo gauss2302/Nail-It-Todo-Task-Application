@@ -40,6 +40,7 @@ class UpperBar extends StatelessWidget implements PreferredSizeWidget {
         style: const TextStyle(color: Colors.white, fontFamily: Fonts.raleway),
       ),
       toolbarOpacity: 0.8,
+
       backgroundColor: AppPallete.blueColor,
       leading: Builder(
         builder: (BuildContext context) {

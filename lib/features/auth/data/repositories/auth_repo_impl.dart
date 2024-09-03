@@ -58,6 +58,7 @@ class AuthRepoImpl implements AuthRepo {
         () => remoteDataSource.signUpWithEmailPassword(email: email, username: username, password: password));
   }
 
+// Check whether user can be retrivered cause of internet connection
   Future<Either<Failure, UserEntities>> _getUser(Future<UserEntities> Function() fn) async {
     try {
       if (!await (connectionChecker.isConnected)) {

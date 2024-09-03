@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:nail_it/core/error/failure.dart';
 import 'package:nail_it/core/usecase/usecase.dart';
 import 'package:nail_it/features/auth/domain/entities/user_entities.dart';
