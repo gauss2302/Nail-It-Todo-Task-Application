@@ -1,10 +1,12 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:nail_it/core/theme/app_pallete.dart';
 import 'package:nail_it/core/theme/fonts.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
   const NavBar({
     required this.navigationShell,
     Key? key,
@@ -13,50 +15,111 @@ class NavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
   @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+  // Navigation items configuration
+  final List<NavItem> _items = const [
+    NavItem(
+      icon: LineIcon.mapPin(),
+      label: "Home",
+      route: '/',
+    ),
+    NavItem(
+      icon: LineIcon.earlybirds(),
+      label: "Explore",
+      route: '/goals',
+    ),
+    NavItem(
+      icon: LineIcon.search(),
+      label: "Search",
+      route: '/search',
+    ),
+    NavItem(
+      icon: LineIcon.user(),
+      label: "Profile",
+      route: '/profile',
+    ),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: navigationShell,
-      bottomNavigationBar: CustomNavigationBar(
-        iconSize: 30.0,
-        selectedColor: Colors.white,
-        strokeColor: Colors.white,
-        unSelectedColor: Colors.grey[600],
-        backgroundColor: const Color.fromARGB(255, 214, 111, 216),
-        borderRadius: const Radius.circular(20.0),
-        blurEffect: true,
-        opacity: 0.8,
-        items: [
-          CustomNavigationBarItem(
-            icon: const LineIcon.mapPin(),
-            title: const Text(
-              "Home",
-              style: TextStyle(fontFamily: Fonts.raleway),
-            ),
-          ),
-          CustomNavigationBarItem(
-            icon: const LineIcon.earlybirds(),
-            title: const Text("Explore"),
-          ),
-          CustomNavigationBarItem(
-            icon: const LineIcon.search(),
-            title: const Text("Search"),
-          ),
-          CustomNavigationBarItem(
-            icon: const LineIcon.user(),
-            title: const Text("Me"),
-          ),
-        ],
-        isFloating: true,
-        currentIndex: navigationShell.currentIndex,
-        onTap: (int index) => onTap(context, index),
+      body: widget.navigationShell,
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).padding.bottom,
+          left: 16,
+          right: 16,
+          top: 8,
+        ),
+        child: CustomNavigationBar(
+          iconSize: 30.0,
+          selectedColor: Colors.white,
+          strokeColor: const Color.fromARGB(255, 179, 66, 66),
+          unSelectedColor: AppPallete.whiteColor,
+          backgroundColor: AppPallete.gradient1,
+          borderRadius: const Radius.circular(20.0),
+          blurEffect: true,
+          opacity: 0.8,
+          items: _buildNavigationItems(),
+          isFloating: true,
+          currentIndex: widget.navigationShell.currentIndex,
+          onTap: (index) => _onTap(context, index),
+        ),
       ),
     );
   }
 
-  void onTap(BuildContext context, int index) {
-    navigationShell.goBranch(
+  List<CustomNavigationBarItem> _buildNavigationItems() {
+    return _items.map((item) {
+      final isSelected = _items.indexOf(item) == widget.navigationShell.currentIndex;
+
+      return CustomNavigationBarItem(
+        icon: item.icon,
+        title: Text(
+          item.label,
+          style: TextStyle(
+            fontFamily: Fonts.raleway,
+            fontSize: 12,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            color: isSelected ? Colors.white : Colors.grey[600],
+          ),
+        ),
+      );
+    }).toList();
+  }
+
+  void _onTap(BuildContext context, int index) {
+    // Add haptic feedback
+    HapticFeedback.lightImpact();
+
+    // Navigate to the selected branch
+    widget.navigationShell.goBranch(
       index,
-      initialLocation: index == navigationShell.currentIndex,
+      initialLocation: index == widget.navigationShell.currentIndex,
     );
   }
+}
+
+// Model class for navigation items
+class NavItem {
+  final Widget icon;
+  final String label;
+  final String route;
+
+  const NavItem({
+    required this.icon,
+    required this.label,
+    required this.route,
+  });
+}
+
+// Extension for navigation helpers
+extension NavBarExtension on BuildContext {
+  bool get isHomeTab => GoRouterState.of(this).uri.toString() == '/';
+  bool get isExploreTab => GoRouterState.of(this).uri.toString().startsWith('/goals');
+  bool get isSearchTab => GoRouterState.of(this).uri.toString().startsWith('/search');
+  bool get isProfileTab => GoRouterState.of(this).uri.toString().startsWith('/profile');
 }

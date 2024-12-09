@@ -14,6 +14,7 @@ import 'package:nail_it/core/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await dotenv.load(fileName: ".env");
 
   String superbaseUrl = dotenv.env['SUPERBASE_URL']!;
