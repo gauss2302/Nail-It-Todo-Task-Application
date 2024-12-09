@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:nail_it/core/widgets/appbar.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -19,6 +20,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      appBar: const UpperBar(appbartitle: 'M Y  T A S K S'),
       body: Center(
         child: Text('Task Screen'),
       ),

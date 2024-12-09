@@ -13,20 +13,16 @@ abstract class AppRoutes {
   // Branch 1 - Home
   static const home = '/';
 
-  // Branch 2 - Goals & Tasks
+  // Branch 2 - Goals
   static const goals = '/goals';
-  static const achievement = '/achievement';
+  static const achievement = '/goals/achievement'; // Updated path
+
+  // Branch 3 - Tasks
   static const tasks = '/tasks';
 
-  // Branch 3 - Profile
+  // Branch 4 - Profile
   static const profile = '/profile';
-  static const settings = '/settings';
-
-  // Branch 4 - Tasks
-  static const tasksList = '/tasks';
-
-  // Branch 5 - Search
-  static const search = '/search';
+  static const settings = '/profile/settings'; // Updated path
 }
 
 class AppRouter {
@@ -36,9 +32,8 @@ class AppRouter {
   final List<GlobalKey<NavigatorState>> _shellNavigatorKeys = [
     GlobalKey<NavigatorState>(debugLabel: 'shell_home'),
     GlobalKey<NavigatorState>(debugLabel: 'shell_goals'),
-    GlobalKey<NavigatorState>(debugLabel: 'shell_profile'),
     GlobalKey<NavigatorState>(debugLabel: 'shell_tasks'),
-    GlobalKey<NavigatorState>(debugLabel: 'shell_search'),
+    GlobalKey<NavigatorState>(debugLabel: 'shell_profile'),
   ];
 
   late final GoRouter _router;
@@ -86,15 +81,8 @@ class AppRouter {
               GoRoute(
                 path: 'achievement',
                 pageBuilder: (context, state) => const MaterialPage(
-                  child: GoalsScreen(),
+                  child: AchievmentScreen(),
                   name: 'Achievement',
-                ),
-              ),
-              GoRoute(
-                path: 'tasks',
-                pageBuilder: (context, state) => const MaterialPage(
-                  child: TaskScreen(),
-                  name: 'Tasks',
                 ),
               ),
             ],
@@ -102,9 +90,23 @@ class AppRouter {
         ],
       ),
 
-      // Profile Branch
+      // Tasks Branch
       StatefulShellBranch(
         navigatorKey: _shellNavigatorKeys[2],
+        routes: [
+          GoRoute(
+            path: AppRoutes.tasks,
+            pageBuilder: (context, state) => const MaterialPage(
+              child: TaskScreen(),
+              name: 'Tasks',
+            ),
+          ),
+        ],
+      ),
+
+      // Profile Branch
+      StatefulShellBranch(
+        navigatorKey: _shellNavigatorKeys[3],
         routes: [
           GoRoute(
             path: AppRoutes.profile,
@@ -121,34 +123,6 @@ class AppRouter {
                 ),
               ),
             ],
-          ),
-        ],
-      ),
-
-      // Tasks Branch
-      StatefulShellBranch(
-        navigatorKey: _shellNavigatorKeys[3],
-        routes: [
-          GoRoute(
-            path: AppRoutes.tasksList,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: TaskScreen(),
-              name: 'Tasks',
-            ),
-          ),
-        ],
-      ),
-
-      // Search Branch
-      StatefulShellBranch(
-        navigatorKey: _shellNavigatorKeys[4],
-        routes: [
-          GoRoute(
-            path: AppRoutes.search,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: SearchScreen(),
-              name: 'Search',
-            ),
           ),
         ],
       ),

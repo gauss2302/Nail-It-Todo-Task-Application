@@ -28,13 +28,13 @@ class _NavBarState extends State<NavBar> {
     ),
     NavItem(
       icon: LineIcon.earlybirds(),
-      label: "Explore",
+      label: "Goals",
       route: '/goals',
     ),
     NavItem(
-      icon: LineIcon.search(),
-      label: "Search",
-      route: '/search',
+      icon: LineIcon.tasks(), // Changed icon to represent tasks
+      label: "Tasks",
+      route: '/tasks',
     ),
     NavItem(
       icon: LineIcon.user(),
@@ -42,6 +42,7 @@ class _NavBarState extends State<NavBar> {
       route: '/profile',
     ),
   ];
+  // ... rest of the code
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,7 @@ class _NavBarState extends State<NavBar> {
             fontFamily: Fonts.raleway,
             fontSize: 12,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-            color: isSelected ? Colors.white : Colors.grey[600],
+            color: isSelected ? Colors.white : Colors.white12,
           ),
         ),
       );
@@ -119,7 +120,7 @@ class NavItem {
 // Extension for navigation helpers
 extension NavBarExtension on BuildContext {
   bool get isHomeTab => GoRouterState.of(this).uri.toString() == '/';
-  bool get isExploreTab => GoRouterState.of(this).uri.toString().startsWith('/goals');
-  bool get isSearchTab => GoRouterState.of(this).uri.toString().startsWith('/search');
+  bool get isGoalsTab => GoRouterState.of(this).uri.toString().startsWith('/goals');
+  bool get isTasksTab => GoRouterState.of(this).uri.toString().startsWith('/tasks');
   bool get isProfileTab => GoRouterState.of(this).uri.toString().startsWith('/profile');
 }

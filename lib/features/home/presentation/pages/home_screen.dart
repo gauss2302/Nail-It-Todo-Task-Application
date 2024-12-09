@@ -27,7 +27,15 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             padding: EdgeInsets.all(24),
             child: Column(
               children: [
-                Text('Home Screen', selectionColor: Color.fromARGB(125, 217, 3, 255)),
+                Card(
+                  child: Column(
+                    children: [
+                      Text('Welcome to the Home Screen', selectionColor: Color.fromARGB(125, 217, 3, 255)),
+                      Text('This is the Home Screen', selectionColor: Color.fromARGB(125, 217, 3, 255)),
+                      Text('You can navigate to other screens', selectionColor: Color.fromARGB(125, 217, 3, 255)),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
