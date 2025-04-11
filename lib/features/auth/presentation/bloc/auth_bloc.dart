@@ -25,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _currentUser = currentUser,
         super(AuthInitial()) {
     on<AuthEvent>((_, emit) => emit(AuthLoading()));
+    // on<SignInWithGoogleEvent>(_onSignInWithGoogle);
     // on<AuthSignUp>(_onAuthSignUp);
     // on<AuthLogin>(_onAuthLogin);
     // on<AuthIsUserLoggedIn>(_isUserLoggedIn);
@@ -37,4 +38,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _onAuthLogin(event, Emitter<AuthState> emit) {}
 
   FutureOr<void> _isUserLoggedIn(event, Emitter<AuthState> emit) {}
+
+  // Future<void> _onSignInWithGoogle(
+  //   SignInWithGoogleEvent event,
+  //   Emitter<AuthState> emit,
+  // ) async {
+  //   emit(AuthLoading());
+  //   try {
+  //     final result = await _authRepo.signInWithGoogle();
+  //     result.fold(
+  //       (failure) => emit(AuthFailure(failure.message)),
+  //       (user) => emit(AuthSuccess(user as UserModel)),
+  //     );
+  //   } catch (e) {
+  //     emit(AuthFailure(e.toString()));
+  //   }
+  // }
 }

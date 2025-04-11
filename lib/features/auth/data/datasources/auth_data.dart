@@ -1,11 +1,11 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/enums.dart';
 import 'package:nail_it/core/error/exception.dart';
 import 'package:nail_it/features/auth/data/models/user_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthDataSource {
-  Session? get currentUserSession;
-
   Future<UserModel> signUpWithEmailPassword({
+    required String userId,
     required String username,
     required String email,
     required String password,
@@ -16,73 +16,121 @@ abstract interface class AuthDataSource {
     required String password,
   });
 
+  Future<UserModel> signInWithGoogle();
+
   Future<UserModel?> getCurrentUserData();
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
-  final SupabaseClient superbaseClient;
+  final Account account;
+  final Databases databases;
 
-  AuthDataSourceImpl(this.superbaseClient);
-
-  @override
-  Session? get currentUserSession => superbaseClient.auth.currentSession;
+  AuthDataSourceImpl({required this.account, required this.databases});
 
   @override
   Future<UserModel?> getCurrentUserData() async {
     try {
-      if (currentUserSession != null) {
-        final userData = await superbaseClient.from('profiles').select().eq(
-              'id',
-              currentUserSession!.user.id,
-            );
-        return UserModel.fromJson(userData.first).copyWith(
-          email: currentUserSession!.user.email,
-        );
-      }
-      return null;
-    } catch (e) {
-      throw ServerException(e.toString());
+      final user = await account.get();
+      final userData = await databases.listDocuments(
+        databaseId: "databaseId",
+        collectionId: "profiles",
+        queries: [
+          Query.equal('userId', user.$id),
+        ],
+      );
+
+      if (userData.documents.isEmpty) return null;
+
+      return UserModel.fromJson(userData.documents.first.data).copyWith(
+        email: user.email,
+      );
+    } on AppwriteException catch (e) {
+      throw ServerException(e.message ?? "Error occured");
     }
   }
 
   @override
   Future<UserModel> signInWithEmailPassword({required String email, required String password}) async {
     try {
-      final res = await superbaseClient.auth.signInWithPassword(
-        password: password,
+      final session = await account.createEmailPasswordSession(
         email: email,
+        password: password,
       );
-      if (res.user == null) {
-        throw const ServerException('User is null!');
+
+      final user = await account.get();
+      return UserModel(
+        id: user.$id,
+        email: user.email,
+        username: user.name ?? '',
+      );
+    } on AppwriteException catch (e) {
+      throw ServerException(e.message ?? "Auth Failed");
+    }
+  }
+
+  @override
+  Future<UserModel> signInWithGoogle() async {
+    try {
+      await account.createOAuth2Session(
+        provider: OAuthProvider.google,
+      );
+
+      final user = await account.get();
+
+      final userData = await databases.listDocuments(
+        databaseId: 'databaseId',
+        collectionId: 'profiles',
+        queries: [
+          Query.equal('userId', user.$id),
+        ],
+      );
+
+      if (userData.documents.isEmpty) {
+        await databases.createDocument(
+          databaseId: 'your_database_id',
+          collectionId: 'profiles',
+          documentId: ID.unique(),
+          data: {
+            'userId': user.$id,
+            'username': user.name ?? 'User',
+            'createdAt': DateTime.now().toIso8601String(),
+          },
+        );
       }
-      return UserModel.fromJson(res.user!.toJson());
-    } on AuthException catch (e) {
-      throw ServerException(e.message);
-    } catch (e) {
-      throw ServerException(e.toString());
+
+      return UserModel(
+        id: user.$id,
+        email: user.email,
+        username: user.name ?? 'User',
+        name: user.name ?? '',
+        photoUrl: '',
+      );
+    } on AppwriteException catch (e) {
+      throw ServerException(e.message ?? 'Google authentication failed');
     }
   }
 
   @override
   Future<UserModel> signUpWithEmailPassword(
-      {required String username, required String email, required String password}) async {
+      {required String username, required String userId, required String email, required String password}) async {
     try {
-      final res = await superbaseClient.auth.signUp(
-        password: password,
-        email: email,
-        data: {
-          'username': username,
-        },
-      );
+      final user = await account.create(userId: userId, email: email, password: password);
 
-      if (res.user != null) {
-        throw const ServerException("User already exists");
-      }
-      return UserModel.fromJson(res.user!.toJson());
-    } on AuthException catch (e) {
-      throw ServerException(e.message);
-    } catch (e) {
-      throw ServerException(e.toString());
+      await databases
+          .createDocument(databaseId: "databaseId", collectionId: "profiles", documentId: ID.unique(), data: {
+        'userId': user.$id,
+        'email': user.email,
+        'username': username,
+        'createdAt': DateTime.now().toIso8601String(),
+      });
+
+      return UserModel(
+        id: user.$id,
+        email: user.email,
+        username: username,
+      );
+    } on AppwriteException catch (e) {
+      throw ServerException(e.message ?? "Reg fauled");
     }
   }
 }

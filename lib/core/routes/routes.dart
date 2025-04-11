@@ -5,13 +5,13 @@ import 'package:nail_it/features/achievments/presentation/pages/achievment_scree
 import 'package:nail_it/features/goals/presentation/pages/goals_screen.dart';
 import 'package:nail_it/features/home/presentation/pages/home_screen.dart';
 import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';
-import 'package:nail_it/features/search/presentation/pages/search_screen.dart';
 import 'package:nail_it/features/settings/presentation/pages/settings_screen.dart';
 import 'package:nail_it/features/tasks/presentation/pages/task_screen.dart';
 
 abstract class AppRoutes {
   // Branch 1 - Home
   static const home = '/';
+  static const heroDetail = '/hero/:id'; // Add this line
 
   // Branch 2 - Goals
   static const goals = '/goals';
