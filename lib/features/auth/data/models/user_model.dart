@@ -1,21 +1,52 @@
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:nail_it/features/auth/domain/entities/user_entities.dart';
+import 'package:nail_it/features/auth/domain/entities/user.dart';
 
-part 'user_model.freezed.dart';
-part 'user_model.g.dart';
+class UserModel extends User {
+  const UserModel({
+    required super.id,
+    required super.username,
+    required super.email,
+    required super.name,
+    required super.createdAt,
+    required super.updatedAt,
+  });
 
-@freezed
-class UserModel extends UserEntities with _$UserModel {
-  const factory UserModel({
-    @Default("") String id,
-    @Default('') String username,
-    @Default('') String email,
-    @Default('') String name,
-    @Default('') String photoUrl,
-  }) = _UserModel;
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'].toString(),
+      username: json['username'] ?? '',
+      email: json['email'] ?? '',
+      name: json['name'] ?? '',
+      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : DateTime.now(),
+      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : DateTime.now(),
+    );
+  }
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'name': name,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+    };
+  }
 
-
+  UserModel copyWith({
+    String? id,
+    String? username,
+    String? email,
+    String? name,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }

@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:appwrite/appwrite.dart';
-import 'package:nail_it/core/services/appwrite_service.dart';
 
 import 'package:nail_it/features/tasks/presentation/bloc/task_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,16 +13,8 @@ import 'package:nail_it/core/routes/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final client = AppwriteService.client;
-  final account = AppwriteService.account;
-  final database = AppwriteService.databases;
-
-  HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
-    storage: await HydratedStorage.build(
-      storageDirectory: kIsWeb ? HydratedStorage.webStorageDirectory : await getApplicationDocumentsDirectory(),
-    ),
-  );
+  // Initialize dependency injection
+  await di.init();
 }
 
 class MyApp extends StatelessWidget {
