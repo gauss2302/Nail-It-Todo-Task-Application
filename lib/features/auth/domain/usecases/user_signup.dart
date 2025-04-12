@@ -1,24 +1,39 @@
+import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:nail_it/core/error/failure.dart';
 import 'package:nail_it/core/usecase/usecase.dart';
 import 'package:nail_it/features/auth/domain/entities/auth_response.dart';
 import 'package:nail_it/features/auth/domain/repositories/auth_repo.dart';
 
-class UserSignUp implements UseCase<UserEntities, UserSignUpParams> {
-  final AuthRepo authRepo;
-  const UserSignUp(this.authRepo);
+class RegisterUser implements UseCase<AuthResponse, RegisterParams> {
+  final AuthRepository repository;
+
+  RegisterUser(this.repository);
 
   @override
-  Future<Either<Failure, UserEntities>> call(UserSignUpParams params) async {
-    return await authRepo.signUpWithEmailPassword(
-        email: params.email, username: params.username, password: params.password);
+  Future<Either<Failure, AuthResponse>> call(RegisterParams params) async {
+    return await repository.register(
+      email: params.email,
+      password: params.password,
+      name: params.name,
+      phone: params.phone,
+    );
   }
 }
 
-class UserSignUpParams {
+class RegisterParams extends Equatable {
   final String email;
-  final String username;
   final String password;
+  final String name;
+  final String phone;
 
-  UserSignUpParams({required this.email, required this.username, required this.password});
+  const RegisterParams({
+    required this.email,
+    required this.password,
+    required this.name,
+    required this.phone,
+  });
+
+  @override
+  List<Object> get props => [email, password, name, phone];
 }
