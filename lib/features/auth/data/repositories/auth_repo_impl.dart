@@ -25,9 +25,71 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, User>> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
+  Future<Either<Failure, User>> getCurrentUser() async {
+    try {
+      final token = await secureStorage.getAccessToken();
+
+      if (token == null || token.isEmpty) {
+        return const Left(AuthFailure('Not authenticated'));
+      }
+
+      if (await networkInfo.isConnected) {
+        try {
+          final user = await remoteDataSource.getCurrentUser();
+
+          final userModel = _convertToUserModel(user);
+          await localDataSource.cacheUser(userModel);
+
+          return Right(user);
+        } on UnauthorizedException {
+          final refreshResult = await refreshToken();
+
+          return refreshResult.fold(
+            (failure) async {
+              try {
+                final cachedUser = await localDataSource.getCachedUser();
+                return Right(cachedUser);
+              } on CacheException catch (e) {
+                return Left(CacheFailure(e.message));
+              }
+            },
+            (authResponse) async {
+              try {
+                final user = await remoteDataSource.getCurrentUser();
+                final userModel = _convertToUserModel(user);
+                await localDataSource.cacheUser(userModel);
+
+                return Right(user);
+              } catch (e) {
+                try {
+                  final cachedUser = await localDataSource.getCachedUser();
+                  return Right(cachedUser);
+                } on CacheException catch (e) {
+                  return Left(CacheFailure(e.message));
+                }
+              }
+            },
+          );
+        } catch (e) {
+          try {
+            final cachedUser = await localDataSource.getCachedUser();
+            return Right(cachedUser);
+          } on CacheException catch (e) {
+            return Left(CacheFailure(e.message));
+          }
+        }
+      } else {
+        // If offline, return cached user
+        try {
+          final cachedUser = await localDataSource.getCachedUser();
+          return Right(cachedUser);
+        } on CacheException catch (e) {
+          return Left(CacheFailure(e.message));
+        }
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 
   @override
@@ -63,15 +125,41 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<Failure, void>> logout() async {
+    try {
+      if (await networkInfo.isConnected) {
+        try {
+          await remoteDataSource.logout();
+        } catch (e) {}
+      }
+      await localDataSource.clearCachedUser();
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, AuthResponse>> refreshToken() {
-    // TODO: implement refreshToken
-    throw UnimplementedError();
+  Future<Either<Failure, AuthResponse>> refreshToken() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final authresponse = await remoteDataSource.refreshToken();
+        await secureStorage.setAccessToken(authresponse.accessToken);
+        final userModel = _convertToUserModel(authresponse.user);
+
+        await localDataSource.cacheUser(userModel);
+        return Right(authresponse);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.message));
+      } on UnauthorizedException catch (e) {
+        await localDataSource.clearCachedUser();
+        return Left(UnauthorizedFailure(e.message));
+      } catch (e) {
+        return Left(ServerFailure(e.toString()));
+      }
+    } else {
+      return const Left(NetworkFailure('No internet connection available'));
+    }
   }
 
   @override
