@@ -15,7 +15,8 @@ Future<void> init() async {
 }
 
 Future<void> initCore() async {
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
+  final InternetConnection connectionChecker = InternetConnection();
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker));
   sl.registerLazySingleton(() => InternetConnection());
 
   // Secure Storage

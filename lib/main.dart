@@ -22,36 +22,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routes = AppRouter().router;
-
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ThemeCubit(),
+    return Scaffold(
+      body: Center(
+        child: Container(
+          width: 200,
+          height: 200,
+          color: Colors.red,
+          child: const Text(
+            'Hello, World!',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
-        BlocProvider(
-          create: (context) => TaskBloc(context.read()),
-        ),
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeMode>(
-        buildWhen: (previous, current) => previous != current,
-        builder: (context, state) {
-          return MultiRepositoryProvider(
-            providers: [
-              RepositoryProvider.value(value: AppwriteService.client),
-              RepositoryProvider.value(value: AppwriteService.account),
-              RepositoryProvider.value(value: AppwriteService.databases),
-              RepositoryProvider.of(context),
-            ],
-            child: MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.light,
-              darkTheme: AppTheme.dark,
-              themeMode: state,
-              routerConfig: routes,
-            ),
-          );
-        },
       ),
     );
   }
