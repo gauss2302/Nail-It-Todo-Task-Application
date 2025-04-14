@@ -62,9 +62,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - ./lib/assets/pics/just_do_it.jpeg
-    - ./lib/assets/pics/ocean.jpg
-    - ./lib/assets/pics/mountain.jpg
     - .env
 
   # fonts:

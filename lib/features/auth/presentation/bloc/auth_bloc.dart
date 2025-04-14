@@ -3,55 +3,168 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:nail_it/core/usecase/usecase.dart';
 import 'package:nail_it/features/auth/data/models/user_model.dart';
-import 'package:nail_it/features/auth/domain/usecases/auth_controller.dart';
+import 'package:nail_it/features/auth/domain/entities/user.dart';
+import 'package:nail_it/features/auth/domain/usecases/get_current_user.dart';
+import 'package:nail_it/features/auth/domain/usecases/logout_user.dart';
+import 'package:nail_it/features/auth/domain/usecases/refresh_token.dart';
 import 'package:nail_it/features/auth/domain/usecases/user_login.dart';
 import 'package:nail_it/features/auth/domain/usecases/user_signup.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserSignUp _userSignUp;
-  final UserLogin _userLogin;
-  final CurrentUser _currentUser;
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
+  final RegisterUser _userSignUp;
+  final LoginUser _userLogin;
+  final LogoutUser _logoutUser;
+  final GetCurrentUser _getCurrentUser;
+  final RefreshToken _refreshToken;
 
   AuthBloc({
-    required UserSignUp userSignUp,
-    required UserLogin userLogin,
-    required CurrentUser currentUser,
+    required RegisterUser userSignUp,
+    required LoginUser userLogin,
+    required LogoutUser logoutUser,
+    required GetCurrentUser getCurrentUser,
+    required RefreshToken refreshToken,
   })  : _userSignUp = userSignUp,
         _userLogin = userLogin,
-        _currentUser = currentUser,
+        _logoutUser = logoutUser,
+        _getCurrentUser = getCurrentUser,
+        _refreshToken = refreshToken,
         super(AuthInitial()) {
-    on<AuthEvent>((_, emit) => emit(AuthLoading()));
-    // on<SignInWithGoogleEvent>(_onSignInWithGoogle);
-    // on<AuthSignUp>(_onAuthSignUp);
-    // on<AuthLogin>(_onAuthLogin);
-    // on<AuthIsUserLoggedIn>(_isUserLoggedIn);
+    on<AuthCheckRequested>(_onAuthCheckRequested);
+    on<AuthLoginRequested>(_onAuthLoginRequested);
+    on<AuthRegisterRequested>(_onAuthRegisterRequested);
+    on<AuthLogoutRequested>(_onAuthLogoutRequested);
+    on<AuthRefreshRequested>(_onAuthRefreshRequested);
   }
 
-  FutureOr<void> _onAuthSignUp(event, Emitter<AuthState> emit) {
+  FutureOr<void> _onAuthCheckRequested(
+      AuthCheckRequested event,
+      Emitter<AuthState> emit
+      ) async {
+    emit(AuthLoading());
 
+    final userResult = await _getCurrentUser(NoParams());
+
+    emit(userResult.fold(
+          (failure) => AuthUnauthenticated(),
+          (user) => AuthAuthenticated(user: user),
+    ));
   }
 
-  FutureOr<void> _onAuthLogin(event, Emitter<AuthState> emit) {}
+  FutureOr<void> _onAuthLoginRequested(
+      AuthLoginRequested event,
+      Emitter<AuthState> emit
+      ) async {
+    emit(AuthLoading());
 
-  FutureOr<void> _isUserLoggedIn(event, Emitter<AuthState> emit) {}
+    final result = await _userLogin(LoginParams(
+      email: event.email,
+      password: event.password,
+    ));
 
-  // Future<void> _onSignInWithGoogle(
-  //   SignInWithGoogleEvent event,
-  //   Emitter<AuthState> emit,
-  // ) async {
-  //   emit(AuthLoading());
-  //   try {
-  //     final result = await _authRepo.signInWithGoogle();
-  //     result.fold(
-  //       (failure) => emit(AuthFailure(failure.message)),
-  //       (user) => emit(AuthSuccess(user as UserModel)),
-  //     );
-  //   } catch (e) {
-  //     emit(AuthFailure(e.toString()));
-  //   }
-  // }
+    emit(result.fold(
+          (failure) => AuthFailure(failure.message),
+          (authResponse) => AuthAuthenticated(
+        user: authResponse.user,
+        token: authResponse.accessToken,
+      ),
+    ));
+  }
+
+  FutureOr<void> _onAuthRegisterRequested(
+      AuthRegisterRequested event,
+      Emitter<AuthState> emit
+      ) async {
+    emit(AuthLoading());
+
+    final result = await _userSignUp(RegisterParams(
+      email: event.email,
+      password: event.password,
+      name: event.name,
+      phone: event.phone,
+    ));
+
+    emit(result.fold(
+          (failure) => AuthFailure(failure.message),
+          (authResponse) => AuthAuthenticated(
+        user: authResponse.user,
+        token: authResponse.accessToken,
+      ),
+    ));
+  }
+
+  FutureOr<void> _onAuthLogoutRequested(
+      AuthLogoutRequested event,
+      Emitter<AuthState> emit
+      ) async {
+    emit(AuthLoading());
+
+    final result = await _logoutUser(NoParams());
+
+    emit(result.fold(
+          (failure) => AuthFailure(failure.message),
+          (_) => AuthUnauthenticated(),
+    ));
+  }
+
+  FutureOr<void> _onAuthRefreshRequested(
+      AuthRefreshRequested event,
+      Emitter<AuthState> emit
+      ) async {
+    if (state is AuthAuthenticated) {
+      final result = await _refreshToken(NoParams());
+
+      emit(result.fold(
+            (failure) => AuthUnauthenticated(),
+            (authResponse) => AuthAuthenticated(
+          user: authResponse.user,
+          token: authResponse.accessToken,
+        ),
+      ));
+    }
+  }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json) {
+    try {
+      final type = json['type'] as String?;
+
+      if (type == 'authenticated') {
+        return AuthAuthenticated(
+          user: UserModel.fromJson(json['user']),
+          token: json['token'],
+        );
+      }
+
+      return AuthUnauthenticated();
+    } catch (_) {
+      return AuthUnauthenticated();
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    if (state is AuthAuthenticated) {
+      return {
+        'type': 'authenticated',
+        'user': state.user is UserModel
+            ? (state.user as UserModel).toJson()
+            : {
+          'id': state.user.id,
+          'username': state.user.username,
+          'email': state.user.email,
+          'name': state.user.name,
+          'createdAt': state.user.createdAt.toIso8601String(),
+          'updatedAt': state.user.updatedAt.toIso8601String(),
+        },
+        'token': state.token,
+      };
+    } else {
+      return {'type': 'unauthenticated'};
+    }
+  }
 }

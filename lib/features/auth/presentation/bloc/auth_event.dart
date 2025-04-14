@@ -7,60 +7,38 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-sealed class SignInEvent extends AuthEvent {
-  const SignInEvent();
+class AuthCheckRequested extends AuthEvent {}
+
+class AuthLoginRequested extends AuthEvent {
+  final String email;
+  final String password;
+
+  const AuthLoginRequested({
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  List<Object> get props => [email, password];
 }
 
-sealed class SignUpEvent extends AuthEvent {
-  const SignUpEvent();
-}
-
-// Sign In Events
-class SignInEventWithEmailandPasswordEvent extends SignInEvent {
+class AuthRegisterRequested extends AuthEvent {
   final String email;
   final String password;
   final String name;
+  final String phone;
 
-  const SignInEventWithEmailandPasswordEvent({
+  const AuthRegisterRequested({
     required this.email,
     required this.password,
     required this.name,
+    required this.phone,
   });
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [email, password, name, phone];
 }
 
-class SignInWithGoogleEvent extends SignInEvent {
-  const SignInWithGoogleEvent();
-}
+class AuthLogoutRequested extends AuthEvent {}
 
-class SignInWithAppleEvent extends SignInEvent {
-  const SignInWithAppleEvent();
-}
-
-// Sign Up Events
-class SignUpEventWithEmailandPasswordEvent extends SignUpEvent {
-  final String email;
-  final String password;
-
-  const SignUpEventWithEmailandPasswordEvent({
-    required this.email,
-    required this.password,
-  });
-
-  @override
-  List<Object> get props => [email, password];
-}
-
-class SignUpWithGoogleEvent extends SignUpEvent {
-  const SignUpWithGoogleEvent();
-}
-
-class SignUpWithAppleEvent extends SignUpEvent {
-  const SignUpWithAppleEvent();
-}
-
-class SignOutEvent extends AuthEvent {
-  const SignOutEvent();
-}
+class AuthRefreshRequested extends AuthEvent {}

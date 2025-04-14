@@ -3,124 +3,79 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:nail_it/core/routes/routes.dart';
 import 'package:nail_it/core/theme/app_pallete.dart';
 import 'package:nail_it/core/theme/fonts.dart';
-
-class NavBar extends StatefulWidget {
-  const NavBar({
-    required this.navigationShell,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>("NavBar"));
-
-  final StatefulNavigationShell navigationShell;
-
-  @override
-  State<NavBar> createState() => _NavBarState();
-}
-
-class _NavBarState extends State<NavBar> {
-  // Navigation items configuration
-  final List<NavItem> _items = const [
-    NavItem(
-      icon: LineIcon.mapPin(),
-      label: "Home",
-      route: '/',
-    ),
-    NavItem(
-      icon: LineIcon.earlybirds(),
-      label: "Goals",
-      route: '/goals',
-    ),
-    NavItem(
-      icon: LineIcon.tasks(), // Changed icon to represent tasks
-      label: "Tasks",
-      route: '/tasks',
-    ),
-    NavItem(
-      icon: LineIcon.user(),
-      label: "Profile",
-      route: '/profile',
-    ),
-  ];
-  // ... rest of the code
+class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.navigationShell,
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).padding.bottom,
-          left: 16,
-          right: 16,
-          top: 8,
+    return BottomNavigationBar(
+      currentIndex: _calculateSelectedIndex(context),
+      onTap: (index) => _onItemTapped(index, context),
+      backgroundColor: AppPallete.gradient1,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(0.5),
+      type: BottomNavigationBarType.fixed,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
         ),
-        child: CustomNavigationBar(
-          iconSize: 30.0,
-          selectedColor: Colors.white,
-          strokeColor: const Color.fromARGB(255, 179, 66, 66),
-          unSelectedColor: AppPallete.whiteColor,
-          backgroundColor: AppPallete.gradient1,
-          borderRadius: const Radius.circular(20.0),
-          blurEffect: true,
-          opacity: 0.8,
-          items: _buildNavigationItems(),
-          isFloating: true,
-          currentIndex: widget.navigationShell.currentIndex,
-          onTap: (index) => _onTap(context, index),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
-      ),
+      ],
     );
   }
 
-  List<CustomNavigationBarItem> _buildNavigationItems() {
-    return _items.map((item) {
-      final isSelected = _items.indexOf(item) == widget.navigationShell.currentIndex;
-
-      return CustomNavigationBarItem(
-        icon: item.icon,
-        title: Text(
-          item.label,
-          style: TextStyle(
-            fontFamily: Fonts.raleway,
-            fontSize: 12,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-            color: isSelected ? Colors.white : Colors.white12,
-          ),
-        ),
-      );
-    }).toList();
+  int _calculateSelectedIndex(BuildContext context) {
+    final String location = GoRouterState.of(context).location;
+    if (location.startsWith(AppRoutes.home)) {
+      return 0;
+    }
+    if (location.startsWith(AppRoutes.profile)) {
+      return 1;
+    }
+    return 0;
   }
 
-  void _onTap(BuildContext context, int index) {
+  void _onItemTapped(int index, BuildContext context) {
     // Add haptic feedback
     HapticFeedback.lightImpact();
 
-    // Navigate to the selected branch
-    widget.navigationShell.goBranch(
-      index,
-      initialLocation: index == widget.navigationShell.currentIndex,
-    );
+    switch (index) {
+      case 0:
+        context.go(AppRoutes.home);
+        break;
+      case 1:
+        context.go(AppRoutes.profile);
+        break;
+    }
   }
 }
 
-// Model class for navigation items
-class NavItem {
-  final Widget icon;
-  final String label;
-  final String route;
+// Scaffold wrapper with bottom nav bar
+class ScaffoldWithNavBar extends StatelessWidget {
+  final Widget child;
 
-  const NavItem({
-    required this.icon,
-    required this.label,
-    required this.route,
-  });
-}
+  const ScaffoldWithNavBar({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
 
-// Extension for navigation helpers
-extension NavBarExtension on BuildContext {
-  bool get isHomeTab => GoRouterState.of(this).uri.toString() == '/';
-  bool get isGoalsTab => GoRouterState.of(this).uri.toString().startsWith('/goals');
-  bool get isTasksTab => GoRouterState.of(this).uri.toString().startsWith('/tasks');
-  bool get isProfileTab => GoRouterState.of(this).uri.toString().startsWith('/profile');
+  @override
+  Widget build(BuildContext context) {
+    final String location = GoRouterState.of(context).location;
+    // Don't show nav bar on login/register screens
+    final bool showNavBar = !location.startsWith(AppRoutes.login) &&
+        !location.startsWith(AppRoutes.register);
+
+    return Scaffold(
+      body: child,
+      bottomNavigationBar: showNavBar ? const BottomNavBar() : null,
+    );
+  }
 }

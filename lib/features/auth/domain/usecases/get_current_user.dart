@@ -7,7 +7,7 @@ import 'package:nail_it/features/auth/domain/repositories/auth_repo.dart';
 class GetCurrentUser implements UseCase<User, NoParams> {
   final AuthRepository repository;
 
-  GetCurrentUser(this.repository);
+  GetCurrentUser( this.repository);
 
   @override
   Future<Either<Failure, User>> call(NoParams params) async {

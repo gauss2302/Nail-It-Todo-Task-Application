@@ -1,133 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:nail_it/core/widgets/navbar.dart';
-import 'package:nail_it/features/achievments/presentation/pages/achievment_screen.dart';
-import 'package:nail_it/features/goals/presentation/pages/goals_screen.dart';
+import 'package:nail_it/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:nail_it/features/auth/presentation/pages/sign_in_screen.dart';
+import 'package:nail_it/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:nail_it/features/home/presentation/pages/home_screen.dart';
 import 'package:nail_it/features/profile/presentation/pages/my_profile_screen.dart';
-import 'package:nail_it/features/settings/presentation/pages/settings_screen.dart';
 import 'package:nail_it/features/tasks/presentation/pages/task_screen.dart';
 
 abstract class AppRoutes {
-  // Branch 1 - Home
+  // Auth routes
+  static const login = '/login';
+  static const register = '/register';
+
+  // Main routes
   static const home = '/';
-  static const heroDetail = '/hero/:id'; // Add this line
-
-  // Branch 2 - Goals
-  static const goals = '/goals';
-  static const achievement = '/goals/achievement'; // Updated path
-
-  // Branch 3 - Tasks
-  static const tasks = '/tasks';
-
-  // Branch 4 - Profile
   static const profile = '/profile';
-  static const settings = '/profile/settings'; // Updated path
 }
 
 class AppRouter {
-  final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _rootNavigatorKey =
+  GlobalKey<NavigatorState>(debugLabel: 'root');
 
-  // Create navigator keys for each branch
-  final List<GlobalKey<NavigatorState>> _shellNavigatorKeys = [
-    GlobalKey<NavigatorState>(debugLabel: 'shell_home'),
-    GlobalKey<NavigatorState>(debugLabel: 'shell_goals'),
-    GlobalKey<NavigatorState>(debugLabel: 'shell_tasks'),
-    GlobalKey<NavigatorState>(debugLabel: 'shell_profile'),
-  ];
+  final GlobalKey<NavigatorState> _shellNavigatorKey =
+  GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-  late final GoRouter _router;
+  late final GoRouter router;
 
   AppRouter() {
-    _router = GoRouter(
+    router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: AppRoutes.home,
-      debugLogDiagnostics: true, // Helpful for debugging
+      debugLogDiagnostics: true,
+      redirect: _handleRedirect,
       routes: [
-        StatefulShellRoute.indexedStack(
-          builder: (context, state, navigationShell) {
-            return NavBar(navigationShell: navigationShell);
+        // Auth routes (outside the shell)
+        GoRoute(
+          path: AppRoutes.login,
+          name: 'login',
+          builder: (context, state) => const SignInScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.register,
+          name: 'register',
+          builder: (context, state) => const SignUpScreen(),
+        ),
+
+        // Shell route for bottom navigation
+        ShellRoute(
+          navigatorKey: _shellNavigatorKey,
+          builder: (context, state, child) {
+            return ScaffoldWithNavBar(child: child);
           },
-          branches: _buildBranches(),
+          routes: [
+            // Main app routes within the shell
+            GoRoute(
+              path: AppRoutes.home,
+              name: 'home',
+              builder: (context, state) => const MyHomeScreen(),
+            ),
+            GoRoute(
+              path: AppRoutes.profile,
+              name: 'profile',
+              builder: (context, state) => const MyProfilePage(),
+            ),
+          ],
         ),
       ],
     );
   }
 
-  List<StatefulShellBranch> _buildBranches() {
-    return [
-      // Home Branch
-      StatefulShellBranch(
-        navigatorKey: _shellNavigatorKeys[0],
-        routes: [
-          GoRoute(
-            path: AppRoutes.home,
-            builder: (context, state) => const MyHomeScreen(),
-          ),
-        ],
-      ),
+  String? _handleRedirect(BuildContext context, GoRouterState state) {
+    // Check the authentication state
+    final authState = context.read<AuthBloc>().state;
+    final isLoggedIn = authState is AuthAuthenticated;
 
-      // Goals Branch
-      StatefulShellBranch(
-        navigatorKey: _shellNavigatorKeys[1],
-        routes: [
-          GoRoute(
-            path: AppRoutes.goals,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: GoalsScreen(),
-              name: 'Goals',
-            ),
-            routes: [
-              GoRoute(
-                path: 'achievement',
-                pageBuilder: (context, state) => const MaterialPage(
-                  child: AchievmentScreen(),
-                  name: 'Achievement',
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+    // Auth routes that don't require authentication
+    final isAuthRoute = state.fullPath == AppRoutes.login ||
+        state.fullPath == AppRoutes.register;
 
-      // Tasks Branch
-      StatefulShellBranch(
-        navigatorKey: _shellNavigatorKeys[2],
-        routes: [
-          GoRoute(
-            path: AppRoutes.tasks,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: TaskScreen(),
-              name: 'Tasks',
-            ),
-          ),
-        ],
-      ),
+    // If user is not logged in and trying to access protected routes
+    if (!isLoggedIn && !isAuthRoute && state.fullPath != AppRoutes.home) {
+      return AppRoutes.login;
+    }
 
-      // Profile Branch
-      StatefulShellBranch(
-        navigatorKey: _shellNavigatorKeys[3],
-        routes: [
-          GoRoute(
-            path: AppRoutes.profile,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: MyProfilePage(),
-              name: 'Profile',
-            ),
-            routes: [
-              GoRoute(
-                path: 'settings',
-                pageBuilder: (context, state) => const MaterialPage(
-                  child: SettingsScreen(),
-                  name: 'Settings',
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ];
+    // If user is logged in and trying to access auth routes
+    if (isLoggedIn && isAuthRoute) {
+      return AppRoutes.home;
+    }
+
+    // No redirection needed
+    return null;
   }
-
-  GoRouter get router => _router;
 }
